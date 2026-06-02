@@ -135,7 +135,7 @@ const EmbiotinSection: React.FC = () => {
             >
               <img
                 src={embiotin2}
-                alt="Embiotin packaging and product image"
+                alt="Emporis Embiotin advanced clinical biotin formulation packaging"
                 style={{
                   display: 'block',
                   width: '100%',
@@ -163,7 +163,7 @@ const EmbiotinSection: React.FC = () => {
                   color: 'rgba(226,201,154,0.75)',
                 }}
               >
-                In the landscape of hair health supplements, one ingredient has achieved unparalleled recognition: Biotin. Its reputation as cornerstone nutrient for hair is well-deserved, forming an essential part of the keratin production process.
+                In the landscape of hair health supplements, one ingredient has achieved unparalleled recognition: Biotin. Its reputation as a cornerstone nutrient for hair is well-deserved, forming an essential part of the keratin production process.
               </p>
               <p
                 style={{
@@ -174,7 +174,7 @@ const EmbiotinSection: React.FC = () => {
                   marginTop: '1rem',
                 }}
               >
-                Embiotin honours this legacy — while recognising that a single pillar, however strong, cannot support the entire structure of hair health.
+                Developed by Emporis Health Care—alongside our specialized formulations like Emflat™ digestive syrup and Emprotino™ whey protein—Embiotin™ honours this legacy by offering a complete six-pillar approach to hair health.
               </p>
             </div>
           </div>
@@ -598,7 +598,7 @@ const EmbiotinSection: React.FC = () => {
                   maxWidth: '60ch',
                 }}
               >
-                The Embiotin standard dictates the use of only high-grade, premium raw materials to ensure maximum bioavailability and effectiveness. Embiotin contains precisely the ingredients listed on the label, in the exact therapeutic dosages specified in the formulation, without deviation.
+                The Emporis Embiotin™ standard dictates the use of only high-grade, premium raw materials to ensure maximum bioavailability and effectiveness. Like all clinical solutions by Emporis Health Care—including Emflat™ and Emprotino™—Embiotin™ contains precisely the ingredients listed on the label, in the exact therapeutic dosages specified in the formulation, without deviation.
               </blockquote>
             </div>
           </div>

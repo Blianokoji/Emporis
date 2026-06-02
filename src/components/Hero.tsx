@@ -34,6 +34,7 @@ const Hero: React.FC = () => {
                 color: '#F2F0EB',
               }}
             >
+              <span style={{ display: 'block', fontSize: '0.22em', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#8A9BAD', marginBottom: '0.6rem' }}>Emporis Health Care</span>
               Redefining Wellness.<br />
               <span style={{ color: '#C8A96E' }}>Restoring Trust.</span>
             </h1>

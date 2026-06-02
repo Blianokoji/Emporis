@@ -18,8 +18,8 @@ const products: Product[] = [
   {
     index: '01',
     name: 'Embiotin™',
-    tagline: 'Advanced Hair Growth Supplement',
-    desc: 'A premium biotin-based nutritional formulation fortified with essential vitamins and minerals. Embiotin™ strengthens hair from the root, enhances shine, and promotes healthy regrowth — helping restore confidence naturally.',
+    tagline: 'Advanced Hair Growth Supplement by Emporis',
+    desc: 'Emporis Embiotin™ is a premium clinical biotin formulation fortified with essential vitamins and minerals. Embiotin™ strengthens hair from the root, enhances shine, and promotes healthy regrowth — helping restore confidence naturally.',
     image: embiotinImg,
     anchor: 'embiotin',
     category: 'Nutraceutical',
@@ -27,8 +27,8 @@ const products: Product[] = [
   {
     index: '02',
     name: 'Emflat™',
-    tagline: 'Simethicone Syrup for Abdominal Discomfort',
-    desc: 'Emflat™ provides fast, gentle relief from gas, bloating, and abdominal discomfort. Its simethicone-based formula is safe for all age groups, ensuring effective digestive comfort for the whole family.',
+    tagline: 'Simethicone Syrup for Abdominal Discomfort by Emporis',
+    desc: 'Emporis Emflat™ provides fast, gentle relief from gas, bloating, and abdominal discomfort. Its premium simethicone-based formula is safe for all age groups, ensuring effective digestive comfort for the whole family.',
     image: emflatImg,
     comingSoon: true,
     category: 'Gastrointestinal',
@@ -36,8 +36,8 @@ const products: Product[] = [
   {
     index: '03',
     name: 'Emprotino™',
-    tagline: 'Advanced Whey Protein Formula',
-    desc: 'A scientifically developed whey protein supplement designed to meet increased protein requirements in special populations.',
+    tagline: 'Advanced Whey Protein Formula by Emporis',
+    desc: 'Emporis Emprotino™ is a scientifically developed whey protein supplement designed to meet increased protein requirements in special populations.',
     image: emproteinImg,
     comingSoon: true,
     category: 'Nutritional',
@@ -83,7 +83,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ product, flip, isLast }) => {
       >
         <img
           src={product.image}
-          alt={product.name}
+          alt={`Emporis ${product.name} - ${product.tagline}`}
           className="w-full h-full object-cover object-center"
           style={{ filter: product.comingSoon ? 'saturate(0.6) brightness(0.85)' : 'none' }}
         />
@@ -173,7 +173,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ product, flip, isLast }) => {
             textTransform: 'uppercase',
           }}
         >
-          {product.category}
+          Emporis &bull; {product.category}
         </span>
       </div>
 
