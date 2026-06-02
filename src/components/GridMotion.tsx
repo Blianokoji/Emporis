@@ -102,14 +102,14 @@ const GridMotion: React.FC<GridMotionProps> = ({ items = [], gradientColor = 'rg
                   const content = combinedItems[rowIndex * 7 + itemIndex];
                   return (
                     <div key={itemIndex} className="relative">
-                      <div className="relative w-full h-full overflow-hidden rounded-[10px] bg-[#efefef] flex items-center justify-center text-black font-bold text-[1.1rem]">
+                      <div className="relative w-full h-full overflow-hidden rounded-[8px] bg-[#E8E4DC] flex items-center justify-center text-[#0A1628] font-normal text-[0.95rem]" style={{ border: '1px solid rgba(200,169,110,0.1)' }}>
                         {typeof content === 'string' && isImage(content) ? (
                           <div
-                            className="w-full h-full bg-cover bg-center absolute top-0 left-0 opacity-80"
+                            className="w-full h-full bg-cover bg-center absolute top-0 left-0 opacity-40"
                             style={{ backgroundImage: `url(${content})` }}
                           />
                         ) : (
-                          <div className="p-3 text-center z-[1] opacity-70">{content}</div>
+                          <div className="p-3 text-center z-[1] opacity-75" style={{ fontFamily: 'var(--font-body)', fontWeight: 400 }}>{content}</div>
                         )}
                       </div>
                     </div>
@@ -122,7 +122,7 @@ const GridMotion: React.FC<GridMotionProps> = ({ items = [], gradientColor = 'rg
       </div>
 
       {/* semi-opaque overlay between the animated grid and the children to improve contrast */}
-      <div className="absolute inset-0 z-0 bg-white/60 pointer-events-none" aria-hidden="true" />
+      <div className="absolute inset-0 z-0 bg-[#F2F0EB]/85 pointer-events-none" aria-hidden="true" />
 
       {/* Overlay content */}
       <div className="relative z-10">{children}</div>

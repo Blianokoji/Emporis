@@ -1,8 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: 'Space Grotesk', sans-serif;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+
+  /* Luxury Clinical — Color System */
+  --color-navy:       #0A1628;
+  --color-navy-mid:   #152238;
+  --color-gold:       #C8A96E;
+  --color-gold-light: #E2C99A;
+  --color-cream:      #F2F0EB;
+  --color-cream-dark: #E8E4DC;
+  --color-ink:        #1C1C22;
+  --color-mist:       #8A9BAD;
 }
 
 /* Uniform text elevation for better readability on glass backgrounds */

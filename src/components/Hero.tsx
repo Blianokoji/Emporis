@@ -19,27 +19,65 @@ const Hero: React.FC = () => {
         backgroundPosition: 'center',
       }}
     >
-      {/* dark overlay for readable text */}
-      <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
+      {/* dark overlay with navy tint for readable text */}
+      <div className="absolute inset-0 bg-[#0A1628]/60" aria-hidden="true" />
       <div className="relative z-10 w-full">
-        <div className="max-w-6xl mx-6 md:mx-12 lg:mx-20 py-24">
-          <div className="w-full md:w-4/5 lg:w-3/4 xl:w-2/3 text-left pl-6 md:pl-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-tight fade-up text-raise drop-shadow-lg pb-2 md:pb-3">
-              Redefining Wellness. Restoring Trust.
+        <div className="max-w-7xl mx-auto px-6 md:px-10 py-24">
+          <div className="max-w-3xl pl-2 md:pl-4">
+            <h1
+              className="fade-up text-raise pb-2 md:pb-3"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(2.5rem, 6.5vw, 4.8rem)',
+                fontWeight: 300,
+                lineHeight: 1.1,
+                color: '#F2F0EB',
+              }}
+            >
+              Redefining Wellness.<br />
+              <span style={{ color: '#C8A96E' }}>Restoring Trust.</span>
             </h1>
 
-            <p className="max-w-4xl mt-5 pb-2 md:pb-3 text-white text-base md:text-xl lg:text-2xl leading-relaxed fade-up text-raise">
-              We are driven by science and compassion, committed to building a healthier tomorrow through innovation,
-              integrity, and excellence.
+            <p
+              className="fade-up text-raise mt-6"
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'clamp(1rem, 2.5vw, 1.15rem)',
+                fontWeight: 300,
+                lineHeight: 1.8,
+                color: 'rgba(242, 240, 235, 0.75)',
+                maxWidth: '48ch',
+              }}
+            >
+              We are driven by science and compassion, committed to building a healthier tomorrow through innovation, integrity, and excellence.
             </p>
 
             <button
               onClick={handleNavigateProducts}
-              className="group mt-8 inline-flex items-center gap-3 px-7 py-3 md:px-9 md:py-4 bg-cyan-600/95 hover:bg-cyan-500/95 text-white text-base md:text-lg rounded-lg shadow-xl ring-1 ring-cyan-300/30 transition-transform transform hover:-translate-y-0.5 focus:outline-none focus-visible:ring-4 focus-visible:ring-cyan-400/30"
+              className="group mt-10 inline-flex items-center gap-3 px-8 py-3.5 transition-all duration-300 hover:shadow-lg focus:outline-none"
+              style={{
+                background: '#C8A96E',
+                color: '#0A1628',
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                border: '1px solid #C8A96E',
+                cursor: 'pointer',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.color = '#C8A96E';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#C8A96E';
+                e.currentTarget.style.color = '#0A1628';
+              }}
             >
-              <span className="font-semibold">Explore Our Products</span>
+              <span>Explore Our Products</span>
               <svg
-                className="w-5 h-5 md:w-6 md:h-6 transform transition-transform duration-300 group-hover:translate-x-2"
+                className="w-4 h-4 transform transition-transform duration-300 group-hover:translate-x-1.5"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={2}

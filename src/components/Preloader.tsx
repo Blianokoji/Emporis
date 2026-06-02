@@ -23,8 +23,19 @@ const Preloader: React.FC<PreloaderProps> = ({ setIsLoading }) => {
   }, [setIsLoading]);
 
   return (
-    <div className="preloader fixed inset-0 flex flex-col justify-center items-center bg-white z-[9999]">
-      <div className="preloader-logo text-3xl font-bold text-cyan-400 tracking-wide flex items-center gap-2">
+    <div
+      className="preloader fixed inset-0 flex flex-col justify-center items-center z-[9999]"
+      style={{ background: '#0A1628' }}
+    >
+      <div
+        className="preloader-logo tracking-wide flex items-center gap-2"
+        style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: '2rem',
+          fontWeight: 400,
+          color: '#C8A96E',
+        }}
+      >
         <TextType
           text={["Emporis Health Care"]}
           typingSpeed={80}
@@ -36,8 +47,14 @@ const Preloader: React.FC<PreloaderProps> = ({ setIsLoading }) => {
           className="inline-block"
         />
       </div>
-      <div className="mt-6 w-16 h-1.5 bg-teal-200 rounded-full overflow-hidden">
-        <div className="h-full w-1/2 bg-cyan-600 animate-pulse"></div>
+      <div
+        className="mt-6 w-24 h-[1px] overflow-hidden"
+        style={{ background: 'rgba(200, 169, 110, 0.15)' }}
+      >
+        <div
+          className="h-full w-1/2 animate-pulse"
+          style={{ background: '#C8A96E' }}
+        ></div>
       </div>
     </div>
   );
