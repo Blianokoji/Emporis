@@ -1,55 +1,55 @@
-import React, { useEffect, useState } from "react";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-// import Navbar from "./components/Navbar";
-// import Hero from "./components/Hero";
-// import About from "./components/About";
+import React, { useState, type CSSProperties } from "react";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
 import Products from "./components/Products";
 import EmbiotinSection from "./components/EmbiotinSection";
+import About from "./components/About";
 import Edge from "./components/Edge";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Preloader from "./components/Preloader";
 
-const NavbarLazy = React.lazy(() => import("./components/Navbar"));
-const AboutLazy = React.lazy(() => import("./components/About"));
-const HeroLazy = React.lazy(()=> import("./components/Hero"))
+const INTRO_KEY = "emporis-intro-seen";
 
-gsap.registerPlugin(ScrollTrigger);
+/** The brand intro plays once per browser session. */
+function shouldPlayIntro(): boolean {
+  try {
+    return !sessionStorage.getItem(INTRO_KEY);
+  } catch {
+    return true; // Storage blocked (private mode); still show the intro.
+  }
+}
+
+function markIntroSeen(): void {
+  try {
+    sessionStorage.setItem(INTRO_KEY, "1");
+  } catch {
+    // Storage blocked; the intro simply plays again next visit.
+  }
+}
 
 const App: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [introPlaying, setIntroPlaying] = useState(shouldPlayIntro);
+  // Hero entrance waits for the intro veil only on the first visit of a session.
+  const [introDelay] = useState(introPlaying ? "1s" : "0s");
 
-  useEffect(() => {
-    if (!isLoading) {
-      gsap.utils.toArray<HTMLElement>(".fade-up").forEach((el) => {
-        gsap.from(el, {
-          y: 40,
-          opacity: 0,
-          duration: 1,
-          scrollTrigger: {
-            trigger: el,
-            start: "top 90%",
-          },
-        });
-      });
-    }
-  }, [isLoading]);
-
-  if (isLoading) {
-    return <Preloader setIsLoading={setIsLoading} />;
-  }
+  const handleIntroDone = () => {
+    markIntroSeen();
+    setIntroPlaying(false);
+  };
 
   return (
-    <div className="font-sans text-slate-800 bg-white">
-      <NavbarLazy />
-      <HeroLazy />
-
-      <Products />
-  <EmbiotinSection />
-        <AboutLazy />
-      <Edge />
-      <Contact />
+    <div style={{ "--intro": introDelay } as CSSProperties}>
+      {introPlaying && <Preloader onDone={handleIntroDone} />}
+      <Navbar />
+      <main>
+        <Hero />
+        <Products />
+        <EmbiotinSection />
+        <About />
+        <Edge />
+        <Contact />
+      </main>
       <Footer />
     </div>
   );

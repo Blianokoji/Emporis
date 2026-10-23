@@ -1,99 +1,78 @@
 import React from "react";
+import { LuArrowRight, LuShieldCheck, LuFlaskConical, LuScale } from "react-icons/lu";
 import labImg from "../assets/lab_img.webp";
 
-const Hero: React.FC = () => {
-  const handleNavigateProducts = () => {
-    const productsSection = document.getElementById("products");
-    if (productsSection) {
-      productsSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+const assurances = [
+  { icon: LuShieldCheck, text: "Made in WHO-GMP certified facilities" },
+  { icon: LuFlaskConical, text: "Every batch validated for purity" },
+  { icon: LuScale, text: "Exact label dosages, without deviation" },
+] as const;
 
-  return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center text-white"
-      style={{
-        backgroundImage: `url(${labImg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      {/* dark overlay with navy tint for readable text */}
-      <div className="absolute inset-0 bg-[#0A1628]/60" aria-hidden="true" />
-      <div className="relative z-10 w-full">
-        <div className="max-w-7xl mx-auto px-6 md:px-10 py-24">
-          <div className="max-w-3xl pl-2 md:pl-4">
-            <h1
-              className="fade-up text-raise pb-2 md:pb-3"
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2.5rem, 6.5vw, 4.8rem)',
-                fontWeight: 300,
-                lineHeight: 1.1,
-                color: '#F2F0EB',
-              }}
-            >
-              <span style={{ display: 'block', fontSize: '0.22em', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#8A9BAD', marginBottom: '0.6rem' }}>Emporis Health Care</span>
-              Redefining Wellness.<br />
-              <span style={{ color: '#C8A96E' }}>Restoring Trust.</span>
-            </h1>
+// Entrance delays stack on top of --intro, which is 1s while the preloader veil lifts.
+const rise = (ms: number) => ({ animationDelay: `calc(var(--intro, 0s) + ${ms}ms)` });
 
-            <p
-              className="fade-up text-raise mt-6"
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 'clamp(1rem, 2.5vw, 1.15rem)',
-                fontWeight: 300,
-                lineHeight: 1.8,
-                color: 'rgba(242, 240, 235, 0.75)',
-                maxWidth: '48ch',
-              }}
-            >
-              We are driven by science and compassion, committed to building a healthier tomorrow through innovation, integrity, and excellence.
-            </p>
+const Hero: React.FC = () => (
+  <section id="home" className="relative isolate flex min-h-svh flex-col overflow-hidden bg-purple-deep text-lavender-white">
+    <img
+      src={labImg}
+      alt=""
+      width={2560}
+      height={1435}
+      fetchPriority="high"
+      className="absolute inset-0 -z-20 size-full object-cover object-[60%_center]"
+    />
+    {/* Deep purple vignette with a cyan flare where the lab lights sit */}
+    <div
+      aria-hidden
+      className="absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_75%_15%,rgba(21,153,208,0.35),transparent_70%),linear-gradient(100deg,rgba(42,9,51,0.95)_0%,rgba(66,16,79,0.82)_45%,rgba(66,16,79,0.45)_100%)]"
+    />
 
-            <button
-              onClick={handleNavigateProducts}
-              className="group mt-10 inline-flex items-center gap-3 px-8 py-3.5 transition-all duration-300 hover:shadow-lg focus:outline-none"
-              style={{
-                background: '#C8A96E',
-                color: '#0A1628',
-                fontFamily: 'var(--font-body)',
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                border: '1px solid #C8A96E',
-                cursor: 'pointer',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'transparent';
-                e.currentTarget.style.color = '#C8A96E';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#C8A96E';
-                e.currentTarget.style.color = '#0A1628';
-              }}
-            >
-              <span>Explore Our Products</span>
-              <svg
-                className="w-4 h-4 transform transition-transform duration-300 group-hover:translate-x-1.5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </button>
-          </div>
-        </div>
+    <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-5 pt-28 pb-12 sm:px-8 lg:px-10">
+      <p className="animate-rise text-sm tracking-[0.18em] text-cyan-bright" style={rise(0)}>
+        Emporis Health Care
+      </p>
+      <h1
+        className="mt-5 animate-rise font-display text-[clamp(3rem,8.5vw,6.75rem)] leading-[0.98] font-light tracking-[-0.02em]"
+        style={rise(80)}
+      >
+        Redefining Wellness.
+        <span className="block text-magenta-vibrant">Restoring Trust.</span>
+      </h1>
+      <p
+        className="mt-7 max-w-[46ch] animate-rise text-[clamp(1.05rem,1.6vw,1.2rem)] leading-relaxed font-light text-lavender-white/85"
+        style={rise(180)}
+      >
+        We are driven by science and compassion, committed to building a healthier tomorrow through innovation,
+        integrity, and excellence.
+      </p>
+      <div className="mt-10 flex animate-rise flex-wrap gap-3" style={rise(260)}>
+        <a
+          href="#products"
+          className="group inline-flex min-h-12 items-center gap-3 rounded-full bg-magenta-vibrant px-7 text-sm font-medium text-white shadow-lg shadow-magenta-vibrant/25 transition duration-300 ease-out-expo hover:-translate-y-0.5 hover:shadow-xl hover:shadow-magenta-vibrant/35"
+        >
+          Explore our products
+          <LuArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden />
+        </a>
+        <a
+          href="#about"
+          className="inline-flex min-h-12 items-center rounded-full border border-lavender-white/30 px-7 text-sm font-medium text-lavender-white transition-colors duration-300 hover:border-lavender-white hover:bg-blue-health"
+        >
+          About Emporis
+        </a>
       </div>
-    </section>
-  );
-};
+    </div>
+
+    <div className="border-t border-lavender-white/15 bg-purple-deep/40 backdrop-blur-sm">
+      <ul className="mx-auto grid max-w-7xl gap-4 px-5 py-6 sm:grid-cols-3 sm:px-8 lg:px-10">
+        {assurances.map(({ icon: Icon, text }, i) => (
+          <li key={text} className="flex animate-rise items-center gap-3 text-sm text-lavender-white/85" style={rise(360 + i * 70)}>
+            <Icon className="size-5 shrink-0 text-cyan-bright" aria-hidden />
+            {text}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+);
 
 export default Hero;

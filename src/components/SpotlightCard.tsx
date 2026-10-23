@@ -1,68 +1,33 @@
-import React, { useRef, useState } from 'react';
-
-interface Position {
-  x: number;
-  y: number;
-}
+import React, { useRef } from "react";
 
 interface SpotlightCardProps extends React.PropsWithChildren {
   className?: string;
-  style?: React.CSSProperties;
   spotlightColor?: `rgba(${number}, ${number}, ${number}, ${number})`;
 }
 
+/** Cursor-tracking radial highlight. Position is written to CSS variables, so moving the pointer never re-renders. */
 const SpotlightCard: React.FC<SpotlightCardProps> = ({
   children,
-  className = '',
-  style,
-  spotlightColor = 'rgba(255, 255, 255, 0.25)'
+  className = "",
+  spotlightColor = "rgba(213, 27, 112, 0.2)",
 }) => {
-  const divRef = useRef<HTMLDivElement>(null);
-  const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
-  const [opacity, setOpacity] = useState<number>(0);
+  const ref = useRef<HTMLDivElement>(null);
 
-  const handleMouseMove: React.MouseEventHandler<HTMLDivElement> = e => {
-    if (!divRef.current || isFocused) return;
-
-    const rect = divRef.current.getBoundingClientRect();
-    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-  };
-
-  const handleFocus = () => {
-    setIsFocused(true);
-    setOpacity(0.6);
-  };
-
-  const handleBlur = () => {
-    setIsFocused(false);
-    setOpacity(0);
-  };
-
-  const handleMouseEnter = () => {
-    setOpacity(0.6);
-  };
-
-  const handleMouseLeave = () => {
-    setOpacity(0);
+  const handlePointerMove: React.PointerEventHandler<HTMLDivElement> = (e) => {
+    const el = ref.current;
+    if (!el || e.pointerType !== "mouse") return;
+    const rect = el.getBoundingClientRect();
+    el.style.setProperty("--spot-x", `${e.clientX - rect.left}px`);
+    el.style.setProperty("--spot-y", `${e.clientY - rect.top}px`);
   };
 
   return (
-    <div
-      ref={divRef}
-      onMouseMove={handleMouseMove}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className={`relative border overflow-hidden p-8 ${className}`}
-      style={style}
-    >
+    <div ref={ref} onPointerMove={handlePointerMove} className={`group/spot relative overflow-hidden ${className}`}>
       <div
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out"
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover/spot:opacity-100"
         style={{
-          opacity,
-          background: `radial-gradient(circle at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 80%)`
+          background: `radial-gradient(600px circle at var(--spot-x, 50%) var(--spot-y, 50%), ${spotlightColor}, transparent 70%)`,
         }}
       />
       {children}

@@ -1,63 +1,27 @@
-import React, { useEffect } from "react";
-import gsap from "gsap";
-import TextType from './TextType';
+import React from "react";
+import logo from "../assets/emporis_logo.webp";
 
 interface PreloaderProps {
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  onDone: () => void;
 }
 
-const Preloader: React.FC<PreloaderProps> = ({ setIsLoading }) => {
-  useEffect(() => {
-    const tl = gsap.timeline({ repeat: -1, yoyo: true });
-    tl.to(".preloader-logo", { scale: 1.05, duration: 1, ease: "power1.inOut" });
-
-    const timer = setTimeout(() => {
-      gsap.to(".preloader", {
-        opacity: 0,
-        duration: 0.8,
-        onComplete: () => setIsLoading(false),
-      });
-    }, 2500);
-
-    return () => clearTimeout(timer);
-  }, [setIsLoading]);
-
-  return (
-    <div
-      className="preloader fixed inset-0 flex flex-col justify-center items-center z-[9999]"
-      style={{ background: '#0A1628' }}
-    >
-      <div
-        className="preloader-logo tracking-wide flex items-center gap-2"
-        style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: '2rem',
-          fontWeight: 400,
-          color: '#C8A96E',
-        }}
-      >
-        <TextType
-          text={["Emporis Health Care"]}
-          typingSpeed={80}
-          deletingSpeed={40}
-          pauseDuration={800}
-          loop={true}
-          showCursor={true}
-          cursorCharacter={'|'}
-          className="inline-block"
-        />
-      </div>
-      <div
-        className="mt-6 w-24 h-[1px] overflow-hidden"
-        style={{ background: 'rgba(200, 169, 110, 0.15)' }}
-      >
-        <div
-          className="h-full w-1/2 animate-pulse"
-          style={{ background: '#C8A96E' }}
-        ></div>
-      </div>
+/** Brand intro: the mark settles, a vitality line draws, then the veil lifts off the hero. */
+const Preloader: React.FC<PreloaderProps> = ({ onDone }) => (
+  <div
+    aria-hidden="true"
+    className="fixed inset-0 z-[100] flex animate-veil flex-col items-center justify-center bg-purple-brand"
+    onAnimationEnd={(e) => {
+      if (e.animationName === "veil") onDone();
+    }}
+  >
+    <div className="flex animate-rise items-center gap-4">
+      <img src={logo} alt="" width={44} height={52} className="h-12 w-auto" />
+      <span className="font-display text-3xl font-normal tracking-wide text-lavender-white md:text-4xl">
+        Emporis Health Care
+      </span>
     </div>
-  );
-};
+    <span className="mt-6 block h-px w-40 origin-left animate-draw bg-linear-to-r from-magenta-vibrant to-cyan-bright" />
+  </div>
+);
 
 export default Preloader;

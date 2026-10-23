@@ -1,32 +1,109 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
 @theme {
-  --font-sans: 'Space Grotesk', sans-serif;
+  /* Typography — DM Sans is the default (preflight reads --font-sans) */
+  --font-sans: 'DM Sans', system-ui, sans-serif;
   --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-tech: 'Space Grotesk', 'DM Sans', sans-serif;
 
-  /* Luxury Clinical — Color System */
-  --color-navy:       #0A1628;
-  --color-navy-mid:   #152238;
-  --color-gold:       #C8A96E;
-  --color-gold-light: #E2C99A;
-  --color-cream:      #F2F0EB;
-  --color-cream-dark: #E8E4DC;
-  --color-ink:        #1C1C22;
-  --color-mist:       #8A9BAD;
+  /* Brochure-sampled Design 2.0 colour tokens */
+  --color-purple-brand: #42104F;
+  --color-purple-deep: #2A0933;
+  --color-magenta-vibrant: #D51B70;
+  --color-blue-health: #263D99;
+  --color-cyan-bright: #1599D0;
+  --color-green-health: #5C9E31;
+  --color-lavender-white: #F7F3FA;
+
+  /* Derived neutrals */
+  --color-ink-deep: #200B29;
+  --color-muted-plum: #705F7B;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-rise: rise 0.9s var(--ease-out-expo) both;
+  --animate-veil: veil 0.7s var(--ease-out-expo) 0.9s both;
+  --animate-draw: draw 0.8s var(--ease-out-expo) 0.1s both;
+  --animate-sheet-in: sheet-in 0.45s var(--ease-out-expo);
+  --animate-sheet-out: sheet-out 0.25s ease-in;
+  --animate-fade-in: fade-in 0.3s ease-out;
+  --animate-fade-out: fade-out 0.25s ease-in;
+
+  @keyframes sheet-in {
+    from { opacity: 0; transform: translateY(-1.5rem); }
+  }
+  @keyframes sheet-out {
+    to { opacity: 0; transform: translateY(-1rem); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+  }
+  @keyframes fade-out {
+    to { opacity: 0; }
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes veil {
+    to { transform: translateY(-100%); }
+  }
+  @keyframes draw {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
 }
 
-/* Uniform text elevation for better readability on glass backgrounds */
-.text-raise {
-  /* Subtle layered shadow that works for both light and dark text */
-  text-shadow:
-    0 0.5px 0 rgba(0, 0, 0, 0.35),
-    0 1.5px 2px rgba(0, 0, 0, 0.25);
+@layer base {
+  body {
+    background: var(--color-lavender-white);
+    color: var(--color-ink-deep);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-magenta-vibrant);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-cyan-bright);
+    outline-offset: 3px;
+  }
+
+  /* Offset anchor jumps for the fixed navbar */
+  section[id] {
+    scroll-margin-top: 4.5rem;
+  }
 }
 
-/* Smooth anchor scrolling site-wide */
-html {
-  scroll-behavior: smooth;
+@utility glass-purple {
+  background: rgba(66, 16, 79, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(213, 27, 112, 0.18);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+}
+
+@utility text-gradient-vitality {
+  background: linear-gradient(135deg, #D51B70 0%, #1599D0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Hexagon clip used by the Embiotin formula explorer (echoes the pack artwork) */
+@utility hex {
+  clip-path: polygon(25% 3%, 75% 3%, 100% 50%, 75% 97%, 25% 97%, 0 50%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
