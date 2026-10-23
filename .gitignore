@@ -25,3 +25,7 @@ dist-ssr
 
 # markdown files
 initial_design_choices.md
+# Local tooling and generated analysis
+.claude/
+graphify-out/
+skills-lock.json
