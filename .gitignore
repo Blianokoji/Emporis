@@ -29,3 +29,9 @@ initial_design_choices.md
 .claude/
 graphify-out/
 skills-lock.json
+.playwright-mcp/
+
+# Environment files (keep the template)
+.env
+.env.*
+!.env.example
