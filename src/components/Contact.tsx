@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { FaLinkedinIn, FaInstagram } from "react-icons/fa6";
-import { LuMapPin, LuMail, LuSend } from "react-icons/lu";
+import logo from "../assets/emporis_logo.webp";
 
 const EMAIL = "info@emporishealthcare.com";
 
@@ -10,15 +9,10 @@ const { VITE_EMAILJS_SERVICE_ID: serviceId, VITE_EMAILJS_TEMPLATE_ID: templateId
 const emailJs: { serviceId: string; templateId: string; publicKey: string } | null =
   serviceId && templateId && publicKey ? { serviceId, templateId, publicKey } : null;
 
-const socials = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/emporishealthcare", icon: FaLinkedinIn },
-  { label: "Instagram", href: "https://www.instagram.com/emporishealthcare", icon: FaInstagram },
-] as const;
-
 type Status = "idle" | "sending" | "sent" | "error";
 
 const fieldClass =
-  "mt-2 w-full rounded-2xl border border-purple-brand/15 bg-white px-4 py-3 text-ink-deep placeholder:text-muted-plum/60 transition-shadow focus:border-blue-health focus:shadow-[0_0_0_3px_rgba(38,61,153,0.15),0_0_18px_rgba(21,153,208,0.18)] focus:outline-none";
+  "mt-2 block w-full rounded-lg border border-purple-brand/20 bg-white px-3.5 py-3 text-base font-normal text-ink-deep transition-[border-color,box-shadow] duration-150 hover:border-purple-brand/35 focus:border-blue-health focus:ring-3 focus:ring-blue-health/15 focus:outline-none";
 
 const Contact: React.FC = () => {
   const [status, setStatus] = useState<Status>("idle");
@@ -55,22 +49,22 @@ const Contact: React.FC = () => {
 
   return (
     <section id="contact" className="bg-lavender-white py-[clamp(4.5rem,10vw,8rem)]">
-      <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-20 lg:px-10">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+        <div className="flex items-center gap-3 border-b border-purple-brand/10 pb-5">
+          <img src={logo} alt="Emporis logo" width={44} height={48} loading="lazy" className="h-8 w-auto" />
+          <p className="font-display text-lg text-muted-plum">Emporis Health Care</p>
+        </div>
+      </div>
+      <div className="mx-auto mt-12 grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-20 lg:px-10">
         <div>
-          <h2 className="font-display text-[clamp(2.75rem,6vw,4.75rem)] leading-none font-light tracking-[-0.02em] text-ink-deep">
-            Connect with us
+          <h2 className="font-display text-[clamp(2.75rem,6vw,4.75rem)] leading-none font-normal tracking-[-0.02em] text-ink-deep">
+            Connect With Us
           </h2>
-          <p className="mt-5 max-w-[40ch] leading-relaxed text-muted-plum">
-            Questions about our formulations, partnerships or distribution? Write to us and our Kochi team will reply.
-          </p>
 
-          <dl className="mt-10 space-y-7">
-            <div className="flex gap-4">
-              <dt className="grid size-11 shrink-0 place-items-center rounded-full bg-white text-purple-brand ring-1 ring-purple-brand/10">
-                <LuMapPin className="size-5" aria-hidden />
-                <span className="sr-only">Registered address</span>
-              </dt>
-              <dd className="leading-relaxed text-ink-deep">
+          <dl className="mt-10 border-t border-purple-brand/10">
+            <div className="border-b border-purple-brand/10 py-6">
+              <dt className="text-sm font-medium text-muted-plum">Registered Address</dt>
+              <dd className="mt-2 leading-relaxed text-ink-deep">
                 Door No: 32/422, Rajeev Nagar Road,
                 <br />
                 Puthupallypuram, Edappally,
@@ -78,42 +72,26 @@ const Contact: React.FC = () => {
                 Kochi - 682024, Kerala, India
               </dd>
             </div>
-            <div className="flex items-center gap-4">
-              <dt className="grid size-11 shrink-0 place-items-center rounded-full bg-white text-purple-brand ring-1 ring-purple-brand/10">
-                <LuMail className="size-5" aria-hidden />
-                <span className="sr-only">General inquiry</span>
-              </dt>
-              <dd>
+            <div className="border-b border-purple-brand/10 py-6">
+              <dt className="text-sm font-medium text-muted-plum">General Inquiry</dt>
+              <dd className="mt-2">
                 <a
                   href={`mailto:${EMAIL}`}
-                  className="text-lg text-ink-deep underline decoration-magenta-vibrant/40 underline-offset-4 transition-colors hover:text-magenta-vibrant hover:decoration-magenta-vibrant"
+                  className="inline-flex min-h-11 items-center text-lg break-all text-ink-deep underline decoration-purple-brand/25 underline-offset-4 transition-colors duration-150 hover:text-magenta-vibrant hover:decoration-magenta-vibrant"
                 >
                   {EMAIL}
                 </a>
               </dd>
             </div>
           </dl>
-
-          <ul className="mt-10 flex gap-3" aria-label="Emporis on social media">
-            {socials.map(({ label, href, icon: Icon }) => (
-              <li key={label}>
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex min-h-11 items-center gap-2 rounded-full bg-white px-5 text-sm font-medium text-purple-brand ring-1 ring-purple-brand/10 transition hover:bg-cyan-bright hover:text-white hover:ring-cyan-bright"
-                >
-                  <Icon className="size-4" aria-hidden />
-                  {label}
-                </a>
-              </li>
-            ))}
-          </ul>
         </div>
 
-        <form onSubmit={handleSubmit} className="rounded-[2rem] bg-white p-6 ring-1 ring-purple-brand/8 md:p-10">
-          <h3 className="font-display text-3xl text-ink-deep">Send an enquiry</h3>
-          <div className="mt-6 grid gap-5 sm:grid-cols-2">
+        <form
+          onSubmit={handleSubmit}
+          aria-label="Enquiry"
+          className="rounded-xl border border-purple-brand/10 bg-white p-6 md:p-10"
+        >
+          <div className="grid gap-5 sm:grid-cols-2">
             <label className="block text-sm font-medium text-ink-deep">
               Name
               <input name="name" type="text" required autoComplete="name" className={fieldClass} />
@@ -132,9 +110,8 @@ const Contact: React.FC = () => {
             <button
               type="submit"
               disabled={status === "sending"}
-              className="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-full bg-magenta-vibrant px-7 text-sm font-medium text-white shadow-lg shadow-magenta-vibrant/20 transition duration-300 ease-out-expo hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-70"
+              className="inline-flex min-h-12 cursor-pointer items-center rounded-lg bg-magenta-vibrant px-6 text-sm font-medium text-white transition-colors duration-150 hover:bg-purple-brand disabled:cursor-wait disabled:opacity-70"
             >
-              <LuSend className="size-4" aria-hidden />
               {status === "sending" ? "Sending…" : "Send message"}
             </button>
             <p role="status" className="text-sm text-muted-plum">

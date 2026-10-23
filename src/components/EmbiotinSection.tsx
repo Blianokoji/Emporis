@@ -1,151 +1,214 @@
-import React from "react";
+import React, { useState } from "react";
 import embiotin2 from "../assets/embiotin_2.webp";
-import FormulaExplorer, { type Ingredient } from "./FormulaExplorer";
+import FormulaRing from "./FormulaRing";
+import FormulaTable, { type FormulaRow } from "./FormulaTable";
+import ProductStandard from "./ProductStandard";
+import Eyebrow from "./Eyebrow";
+import {
+  container,
+  formulaBand,
+  formulaCount,
+  formulaGrid,
+  formulaHeader,
+  pillarItem,
+  pillarList,
+  pillarRule,
+  pillarText,
+  pillarTitle,
+  productAccent,
+  sectionPad,
+  spotlightBand,
+  spotlightCopy,
+  spotlightFrame,
+  spotlightGrid,
+  spotlightLabel,
+  spotlightName,
+  spotlightSubtitle,
+  subheading,
+  visualCard,
+} from "./productLayout";
 
-const ingredients: Ingredient[] = [
-  { id: "pantothenate", name: "Calcium Pantothenate", short: "Calcium Pantothenate", dosage: "100 mg", role: "The Follicle Nourisher", tone: "bg-green-health" },
-  { id: "nac", name: "N-Acetylcysteine (NAC)", short: "NAC", dosage: "50 mg", role: "The Cellular Guardian", tone: "bg-cyan-bright" },
-  { id: "zinc", name: "Zinc Oxide (Elemental Zinc)", short: "Zinc", dosage: "22.5 mg", role: "Growth & Repair Catalyst", tone: "bg-blue-health" },
-  { id: "biotin", name: "Biotin", short: "Biotin", dosage: "10 mg / 10,000 mcg", role: "The Keratin Architect", tone: "bg-magenta-vibrant" },
-  { id: "copper", name: "Cupric Oxide (Elemental Copper)", short: "Copper", dosage: "3 mg", role: "Structural & Pigment Anchor", tone: "bg-green-health" },
-  { id: "selenium", name: "Sodium Selenite (Elemental Selenium)", short: "Selenium", dosage: "65 mcg", role: "Scalp Health Regulator", tone: "bg-cyan-bright" },
+const accent = productAccent.embiotin;
+
+const ingredients: FormulaRow[] = [
+  {
+    id: "pantothenate",
+    name: "Calcium Pantothenate (Vitamin B5)",
+    amount: "100 mg",
+    role: "Precursor to Coenzyme A (CoA) for myelin sheath synthesis & cellular energy; prevents deficiency neuropathies & 'burning feet syndrome'",
+    tone: accent.fill,
+  },
+  { id: "nac", name: "N-Acetylcysteine (NAC)", amount: "50 mg", role: "The Cellular Guardian & Master Antioxidant", tone: accent.fill },
+  { id: "zinc", name: "Zinc Oxide (Elemental Zinc)", amount: "22.5 mg", role: "Growth & Repair Catalyst", tone: accent.fill },
+  { id: "biotin", name: "Biotin", amount: "10 mg / 10,000 mcg", role: "Keratin Architect & Essential Metabolic Cofactor", tone: accent.fill },
+  { id: "copper", name: "Cupric Oxide (Elemental Copper)", amount: "3 mg", role: "Structural & Pigment Anchor", tone: accent.fill },
+  { id: "selenium", name: "Sodium Selenite (Elemental Selenium)", amount: "65 mcg", role: "Scalp Health & Cellular Protection", tone: accent.fill },
 ];
 
 const pillars = [
   {
     letter: "B",
     word: "Build",
-    accent: "border-blue-health text-blue-health",
-    text: "Providing the essential raw materials necessary for construction of strong keratin structures and rapid cellular division that fuels the Anagen growth phase.",
+    text: "Supplying essential substrates and micronutrients required for myelin sheath maintenance, rapid cellular division, and healthy tissue structural integrity.",
   },
   {
     letter: "P",
     word: "Protect",
-    accent: "border-magenta-vibrant text-magenta-vibrant",
-    text: "Deploying a powerful antioxidant shield to defend the delicate hair follicle cells from damaging effects of oxidative stress, preserving their function and extending the growth cycle.",
+    text: "Deploying a potent antioxidant shield to defend delicate neural pathways and cellular membranes from oxidative damage and neuro-degenerative stress.",
   },
   {
     letter: "N",
     word: "Nourish",
-    accent: "border-green-health text-green-health",
-    text: "Delivering key nutrients that support the health of the scalp, improve moisture retention within the hair shaft, and ensure optimal blood flow to the follicle.",
+    text: "Converting into Coenzyme A (CoA) to fuel cellular bioenergetics, mitochondrial ATP synthesis, and microvascular circulation across sensitive nerve endings.",
   },
 ];
 
-const EmbiotinSection: React.FC = () => (
-  <section id="embiotin" aria-labelledby="embiotin-title">
-    {/* ─── Spotlight + formula: one immersive purple chapter ─── */}
-    <div className="bg-linear-to-b from-purple-brand to-purple-deep py-[clamp(4.5rem,10vw,8rem)] text-lavender-white">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-        <div className="grid items-end gap-10 md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-20">
+const clinicalPoints = [
+  {
+    label: "Neuro-Protection",
+    title: "Prevents Deficiency-Induced Damage",
+    text: (
+      <>
+        A severe lack of vitamin B5 causes &ldquo;burning feet syndrome&rdquo; and nerve degeneration; adequate levels prevent these specific deficiency-related neuropathies.
+      </>
+    ),
+  },
+  {
+    label: "Cellular Bioenergetics",
+    title: "Precursor to Coenzyme A",
+    text: (
+      <>
+        It converts into Coenzyme A (CoA), a vital molecule for cellular energy production, myelin sheath synthesis, and the maintenance of structural nerve health.
+      </>
+    ),
+  },
+];
+
+const EmbiotinSection: React.FC = () => {
+  const [activeId, setActiveId] = useState("biotin");
+
+  return (
+    <section id="embiotin" aria-labelledby="embiotin-title">
+      {/* ─── Product spotlight ─── */}
+      <div className={`${spotlightBand} ${sectionPad}`}>
+        <div className={`${container} ${spotlightGrid}`}>
           <div>
-            <p className="text-sm tracking-[0.18em] text-cyan-bright">Product spotlight</p>
-            <h2 id="embiotin-title" className="mt-5 font-display text-[clamp(3.5rem,9vw,7rem)] leading-[0.9] font-light tracking-[-0.03em]">
-              Embiotin™
+            <Eyebrow tone={spotlightLabel}>Product Spotlight</Eyebrow>
+            <h2 id="embiotin-title" className="mt-6 font-display font-normal">
+              <span className={spotlightName}>EMBIOTIN</span>
+              <span className={spotlightSubtitle}>Neuro-Cellular Vitality &amp; Tissue Revitalisation</span>
             </h2>
-            <p className="mt-4 font-display text-[clamp(1.5rem,3vw,2.25rem)] leading-tight font-light italic text-gradient-vitality">
-              Six-pillar approach to hair revitalisation
-            </p>
-            <div className="mt-8 space-y-4 leading-relaxed font-light text-lavender-white/80">
-              <p>
-                In the landscape of hair health supplements, one ingredient has achieved unparalleled recognition: Biotin.
-                Its reputation as a cornerstone nutrient for hair is well-deserved, forming an essential part of the keratin
-                production process.
+            <div className={spotlightCopy}>
+              <p className="text-lavender-white/90">
+                While Biotin has achieved widespread recognition as a cornerstone metabolic cofactor, Embiotin is
+                engineered with a targeted neuroscientific imperative: driving cellular bioenergetics, structural
+                nerve integrity, and tissue revitalization.
               </p>
-              <p className="text-lavender-white/65">
-                Developed by Emporis Health Care—alongside our specialized formulations like Emflat™ digestive syrup and
-                Emprotino™ whey protein—Embiotin™ honours this legacy by offering a complete six-pillar approach to hair
-                health.
+              <p className="text-lavender-white/75">
+                Developed by Emporis Health Care—alongside our specialized formulation Emprotino whey protein—Embiotin
+                supplies therapeutic concentrations of Calcium Pantothenate (Vitamin B5) and bioactive cofactors to protect
+                against peripheral neuropathy while fueling systemic cellular health.
               </p>
             </div>
           </div>
-          <img
-            src={embiotin2}
-            alt="A specialist applying a scalp treatment, illustrating Embiotin hair care"
-            width={397}
-            height={597}
-            loading="lazy"
-            decoding="async"
-            className="mx-auto aspect-[4/5] w-full max-w-sm rounded-[2rem] object-cover md:mx-0 md:justify-self-end"
-          />
+          {/* Portrait source (2:3): framed at its own ratio so neither face is cropped */}
+          <div data-reveal="image" className={spotlightFrame}>
+            <img
+              src={embiotin2}
+              alt="A specialist applying a scalp treatment, illustrating Embiotin hair care"
+              width={397}
+              height={597}
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 size-full object-cover object-top"
+            />
+          </div>
         </div>
+      </div>
 
-        {/* Pillars */}
-        <div className="mt-[clamp(4.5rem,9vw,7rem)] border-t border-white/10 pt-12">
-          <h3 className="max-w-[24ch] font-display text-[clamp(1.9rem,3.6vw,2.75rem)] leading-[1.1] font-light">
-            Comprehensive care targeting three critical domains of hair vitality
+      {/* ─── Neuroscientific Advantage: In Peripheral Neuropathy ─── */}
+      <div className="bg-white py-[clamp(3.5rem,7vw,5.5rem)]">
+        <div className={container}>
+          <div className="max-w-3xl">
+            <Eyebrow>Clinical Focus</Eyebrow>
+            <h3 className="mt-4 font-display text-[clamp(2rem,4vw,3rem)] leading-tight font-normal text-ink-deep">
+              In Peripheral Neuropathy
+            </h3>
+            <p className="mt-4 max-w-[65ch] text-lg leading-[1.6] text-ink-soft">
+              How Embiotin&apos;s high-potency Vitamin B5 (Calcium Pantothenate) powers neurological resilience and protects structural nerve health:
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-10 md:grid-cols-2 md:gap-16">
+            {clinicalPoints.map(({ label, title, text }) => (
+              <div key={label} className="border-t border-purple-brand/10 pt-6">
+                <p className="text-sm font-medium text-muted-plum">{label}</p>
+                <h4 className="mt-2 font-display text-2xl leading-tight font-semibold text-ink-deep">{title}</h4>
+                <p className="mt-3 max-w-[60ch] leading-[1.6] text-ink-soft">{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ─── The Embiotin philosophy ─── */}
+      <div className={`bg-lavender-white ${sectionPad}`}>
+        <div className={container}>
+          <Eyebrow>The Embiotin Philosophy</Eyebrow>
+          <h3 className={`mt-4 max-w-[28ch] text-ink-deep ${subheading}`}>
+            Comprehensive care targeting three critical domains of neuro-cellular vitality
           </h3>
-          <ul className="mt-10 grid gap-8 md:grid-cols-3 md:gap-10">
+          <ul className={`${pillarList} md:grid-cols-3`}>
             {pillars.map((p) => (
-              <li key={p.word} className="flex gap-5">
-                <span
-                  className={`grid size-14 shrink-0 place-items-center rounded-full border-2 bg-lavender-white font-display text-3xl font-medium ${p.accent}`}
-                  aria-hidden
-                >
+              <li key={p.word} className={pillarItem}>
+                <span aria-hidden className={`${pillarRule} ${accent.fill}`} />
+                <span aria-hidden className="block font-display text-5xl leading-none font-normal text-purple-brand/20">
                   {p.letter}
                 </span>
-                <div>
-                  <h4 className="font-display text-2xl font-medium">{p.word}</h4>
-                  <p className="mt-2 text-[0.95rem] leading-relaxed font-light text-lavender-white/70">{p.text}</p>
-                </div>
+                <h4 className={`mt-4 ${pillarTitle}`}>{p.word}</h4>
+                <p className={pillarText}>{p.text}</p>
               </li>
             ))}
           </ul>
         </div>
+      </div>
 
-        {/* Formula explorer — the signature moment */}
-        <div className="mt-[clamp(4.5rem,9vw,7rem)] border-t border-white/10 pt-12">
-          <div className="mb-12 flex flex-col justify-between gap-3 md:flex-row md:items-end">
-            <h3 className="font-display text-[clamp(1.9rem,3.6vw,2.75rem)] leading-[1.1] font-light">Formula at a glance</h3>
-            <p className="text-lavender-white/65">{ingredients.length} active ingredients. Select one to see its role.</p>
+      {/* ─── Formula at a glance ─── */}
+      <div className={`${formulaBand} ${sectionPad}`}>
+        <div className={container}>
+          <div className={formulaHeader}>
+            <div>
+              <Eyebrow>Formula at a Glance</Eyebrow>
+              <h3 className={`mt-4 text-ink-deep ${subheading}`}>EMBIOTIN</h3>
+            </div>
+            <p className={formulaCount}>{ingredients.length} Active Ingredients</p>
           </div>
-          <FormulaExplorer ingredients={ingredients} />
+
+          <div className={formulaGrid}>
+            <div className={visualCard}>
+              <FormulaRing ingredients={ingredients} activeId={activeId} onActivate={setActiveId} />
+            </div>
+
+            <div className="min-w-0">
+              <FormulaTable
+                headings={["Ingredient", "Dosage per Tablet", "Primary Role in Neuro-Cellular Vitality"]}
+                rows={ingredients}
+                activeId={activeId}
+                onActivate={setActiveId}
+              />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-    {/* ─── The Embiotin standard: full label + purity promise ─── */}
-    <div className="bg-lavender-white py-[clamp(4.5rem,10vw,8rem)]">
-      <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20 lg:px-10">
-        <div>
-          <h3 className="font-display text-[clamp(2rem,4vw,3rem)] leading-[1.05] font-light text-ink-deep">The Embiotin standard</h3>
-          <blockquote className="mt-6 border-l-2 border-green-health pl-5 font-display text-[clamp(1.15rem,2vw,1.4rem)] leading-relaxed text-ink-deep/85 italic">
-            The Emporis Embiotin™ standard dictates the use of only high-grade, premium raw materials to ensure maximum
-            bioavailability and effectiveness. Like all clinical solutions by Emporis Health Care—including Emflat™ and
-            Emprotino™—Embiotin™ contains precisely the ingredients listed on the label, in the exact therapeutic dosages
-            specified in the formulation, without deviation.
-          </blockquote>
-        </div>
-
-        <div className="overflow-hidden rounded-[2rem] bg-white ring-1 ring-purple-brand/8">
-          <table className="w-full text-left">
-            <caption className="px-6 pt-6 pb-4 text-left font-display text-2xl text-ink-deep md:px-8">
-              Composition per tablet
-            </caption>
-            <thead className="bg-purple-brand text-sm text-lavender-white">
-              <tr>
-                <th scope="col" className="px-6 py-3 font-medium md:px-8">Ingredient</th>
-                <th scope="col" className="px-4 py-3 font-medium">Dosage</th>
-                <th scope="col" className="hidden px-6 py-3 font-medium md:table-cell md:px-8">Primary role in hair revitalisation</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ingredients.map((ing) => (
-                <tr key={ing.id} className="align-top even:bg-lavender-white">
-                  <th scope="row" className="px-6 py-4 font-medium text-ink-deep md:px-8">
-                    {ing.name}
-                    <span className="mt-1 block text-sm font-normal text-muted-plum md:hidden">{ing.role}</span>
-                  </th>
-                  <td className="px-4 py-4 font-tech whitespace-nowrap text-purple-brand">{ing.dosage}</td>
-                  <td className="hidden px-6 py-4 text-muted-plum md:table-cell md:px-8">{ing.role}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-);
+      <ProductStandard title="The Embiotin Standard">
+        The Emporis Embiotin standard dictates the use of only high-grade, premium raw materials to ensure maximum
+        bioavailability and effectiveness. Like all clinical solutions by Emporis Health Care—including Emprotino—Embiotin
+        contains precisely the ingredients listed on the label, in the exact therapeutic dosages specified in the
+        formulation, without deviation.
+      </ProductStandard>
+    </section>
+  );
+};
 
 export default EmbiotinSection;

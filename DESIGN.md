@@ -54,57 +54,43 @@ To maintain strict WCAG 2.1 AA readability across all canvases:
 
 ---
 
-### C. Signature Gradients & Glass Recipes
+### C. Colour Usage Rules (supersedes the earlier gradient & glass recipes)
 
-```css
-/* 1. Vitality Hero Gradient (Text & Accent Rules) */
-linear-gradient(135deg, #D51B70 0%, #1599D0 100%)
+The palette stays; the harshness came from using every hue everywhere. Distribution follows 60 / 30 / 10:
 
-/* 2. Clinical Authority Gradient (Deep Section Backgrounds) */
-linear-gradient(180deg, #42104F 0%, #2A0933 100%)
-
-/* 3. Soft Radiant Card Glow */
-radial-gradient(circle at 50% 0%, rgba(213, 27, 112, 0.12), transparent 70%)
-
-/* 4. Deep Purple Glassmorphism */
-background: rgba(66, 16, 79, 0.88);
-backdrop-filter: blur(14px);
--webkit-backdrop-filter: blur(14px);
-border-bottom: 1px solid rgba(213, 27, 112, 0.18);
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
-
-/* 5. Lavender Pearl Glassmorphism */
-background: rgba(255, 255, 255, 0.85);
-backdrop-filter: blur(12px);
--webkit-backdrop-filter: blur(12px);
-border: 1px solid rgba(66, 16, 79, 0.08);
-box-shadow: 0 10px 30px -10px rgba(66, 16, 79, 0.06);
-```
+- **60 — Light canvas:** Lavender White and white carry most sections, alternating as tone steps (no lines or shadows between them).
+- **30 — Brand purple:** Deep Brand Purple is reserved for the hero scrim (via Purple Deep), the two product spotlight bands, The Emporis Edge and the footer. Formula tables sit on light surfaces.
+- **10 — Accent:** Vibrant Magenta is the single action colour (primary CTA, text links, active nav rule, send button).
+- **Product identity:** each product owns one accent, used only where it marks something (pillar rule, active table row, visualiser highlight): Embiotin = Vibrant Magenta, Emprotino = Healthcare Blue. Headlines and subtitles stay in ink or lavender-white, never in an accent.
+- **Cyan & Green:** retired from decoration. They appear only in the Emprotino serving bar (the one categorical chart: `#4560C4`, `#1599D0`, `#5C9E31`, validated for colour-blind separation, each directly labelled).
+- **Text:** headings in Ink Deep; running text in Ink Soft `#46384F`; Muted Plum only for captions, labels and table headers.
+- **Never:** gradient text, gradient washes, glassmorphism, glows, multi-colour ribbons (BrandWave strokes in one tone via `currentColor`).
 
 ---
 
 ## 3. Typography Hierarchy & Rules
 
-The typography system pairs **editorial distinction** with **modern medical clarity**:
+Two families. The display serif is sturdy and clinical (journal-like) rather than hairline-thin; figures use DM Sans with tabular numerals.
 
 ```
-Display Headings  : Cormorant Garamond, Georgia, serif
-Body & Navigation : DM Sans, system-ui, sans-serif
-Technical Badges  : Space Grotesk, monospace-fallback, sans-serif
+Display Headings  : Source Serif 4, Georgia, serif   (400 headings, 600 small titles)
+Body, UI & Data   : DM Sans, system-ui, sans-serif   (400 / 500 / 600, tabular-nums for figures)
 ```
 
 ### Typographic Scale
 
 | Level | Font Family | Size (Fluid Clamp) | Weight | Line Height | Tracking | Text Color |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Display Hero** | `Cormorant Garamond` | `clamp(2.75rem, 7vw, 5.25rem)` | 300 / 400 | `1.08` | `-0.02em` | `#F7F3FA` / `#D51B70` |
-| **H1 Section** | `Cormorant Garamond` | `clamp(2.25rem, 5vw, 3.75rem)` | 300 / 400 | `1.12` | `-0.01em` | `#200B29` / `#F7F3FA` |
-| **H2 Sub-title** | `Cormorant Garamond` | `clamp(1.75rem, 3.5vw, 2.5rem)` | 400 / 500 | `1.2` | `0` | `#200B29` / `#42104F` |
-| **H3 Card Title** | `DM Sans` | `clamp(1.25rem, 2vw, 1.5rem)` | 600 | `1.3` | `0.01em` | `#200B29` |
-| **Body Large** | `DM Sans` | `clamp(1.05rem, 1.5vw, 1.2rem)` | 300 / 400 | `1.75` | `0` | `#200B29` / `rgba(247,243,250,0.85)` |
-| **Body Regular** | `DM Sans` | `0.95rem` to `1rem` | 400 | `1.65` | `0` | `#200B29` / `#705F7B` |
-| **Eyebrow / Tag** | `Space Grotesk` | `0.65rem` to `0.75rem` | 600 | `1.2` | `0.22em` | Uppercase `#D51B70` / `#1599D0` |
-| **Numeral Mark** | `Cormorant Garamond` | `clamp(4.5rem, 14vw, 10rem)` | 300 | `1.0` | `-0.04em` | Watermark `rgba(66, 16, 79, 0.08)` |
+| **Display Hero** | `Source Serif 4` | `clamp(2.75rem, 7vw, 5.5rem)` | 400 | `1.02` | `-0.02em` | `#F7F3FA` (second line at 70%) |
+| **Section Title** | `Source Serif 4` | `clamp(2.75rem, 6vw, 4.75rem)` | 400 | `1.0` | `-0.02em` | `#200B29` / `#F7F3FA` |
+| **Product Name** | `Source Serif 4` | `clamp(3rem, 7vw, 5.5rem)` | 400 | `0.95` | `0.01em` | `#F7F3FA` |
+| **Subheading** | `Source Serif 4` | `clamp(1.85rem, 3.4vw, 2.6rem)` | 400 | `1.15` | `-0.01em` | `#200B29` |
+| **Item Title** | `Source Serif 4` | `clamp(1.4rem, 2vw, 1.6rem)` | 600 | `1.25` | `0` | `#200B29` |
+| **Body** | `DM Sans` | `1rem` – `1.0625rem` | 400 | `1.6` | `0` | `#46384F` / `rgba(247,243,250,0.9)` |
+| **Label / Caption** | `DM Sans` | `0.875rem` | 500 | `1.4` | `0` | `#705F7B` (sentence case, never tracked caps) |
+| **Figures** | `DM Sans` | inherit | 500 | inherit | `0` | ink, `tabular-nums` |
+
+Headings use `text-wrap: balance`; paragraphs and list items use `text-wrap: pretty`.
 
 ---
 
@@ -201,7 +187,7 @@ Claude should execute the component redesigns according to these blueprints:
 ### 1. `Navbar.tsx`
 * **Surface:** Initial state transparent; on scroll (`scrollY > 50`), transitions to **Deep Purple Glass** (`rgba(66, 16, 79, 0.88)` with `backdrop-filter: blur(14px)`).
 * **Divider:** Border bottom `1px solid rgba(213, 27, 112, 0.18)`.
-* **Brand Logo & Title:** Logo accompanied by "Emporis Health Care" in `Cormorant Garamond` with letter-spacing `0.04em`.
+* **Brand Logo & Title:** Logo accompanied by "Emporis Health Care" in `Source Serif 4`.
 * **Menu Links:** In `DM Sans` (`0.85rem`, tracking `0.15em`, uppercase), `#F7F3FA` transitioning on hover to `#D51B70` with an animated underline indicator.
 * **Mobile Drawer:** Animated slide-down or slide-in menu with quick contact link and product quick-jump shortcuts.
 
@@ -221,12 +207,12 @@ Claude should execute the component redesigns according to these blueprints:
 
 ### 3. `Products.tsx`
 * **Container Canvas:** Lavender White (`#F7F3FA`) background with alternating row patterns.
-* **Product Rows (Embiotin™, Emflat™, Emprotino™):**
+* **Product Rows (Embiotin & Emprotino):**
   - Split row with large crisp product photography opposite clinical typography.
-  - Giant watermark numeral behind text: `01`, `02`, `03` in `Cormorant Garamond` using `rgba(66, 16, 79, 0.07)`.
-  - Category flag pill: `Nutraceutical` (Healthcare Green `#5C9E31`), `Gastrointestinal` (Bright Cyan `#1599D0`), `Nutritional` (Healthcare Blue `#263D99`).
+  - No watermark numerals (removed in the anti-slop pass).
+  - Category flag pill: `Nutraceutical` (Healthcare Green `#5C9E31`) and `Nutritional` (Healthcare Blue `#263D99`).
   - Image Card: Subtle scale-up (`scale(1.04)`) on hover with smooth corner rounding (`rounded-3xl`).
-  - "Launching Soon" badge: Deep Purple glass pill with Vibrant Magenta border and text.
+  - Both formulations are active and released (no "Launching Soon" badges). Emflat has been removed from the product catalog.
 
 ### 4. `EmbiotinSection.tsx` (Deep Dive Spotlight)
 * **Hero Banner:** Deep Brand Purple (`#42104F`) hero container with animated headline:
@@ -269,7 +255,7 @@ Claude should execute the component redesigns according to these blueprints:
 ### 8. `Footer.tsx`
 * **Canvas:** Solid Deep Brand Purple (`#42104F`) with top border `1px solid rgba(213, 27, 112, 0.20)`.
 * **Content:**
-  - Brand heading in `Cormorant Garamond` (`#F7F3FA`).
+  - Brand heading in `Source Serif 4` (`#F7F3FA`).
   - Clear navigation column links with smooth hover shifts to Vibrant Magenta (`#D51B70`).
   - Regulatory / Clinical disclaimer in muted text (`rgba(247, 243, 250, 0.65)`).
   - Smooth "Back to Top" floating or inline interactive button.

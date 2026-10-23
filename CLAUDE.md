@@ -16,7 +16,9 @@
 
 ### B. Agent & Skill Directives
 * **Graphify:** Utilize `graphify` to map and analyze component dependency graphs, asset references, and CSS token linkages across the application before making structural modifications.
-* **Design Skills:** Invoke specialized design skills (e.g., `frontend-design`, `ui-ux-pro-max`, `design-spells`, `design-spatial`) to ensure:
+* **Design Skills & Anti-Slop Guardrails:** Invoke `taste` (`design-taste-frontend`), `impeccable`, and design skills (`ui-ux-pro-max`, `design-spells`, `design-spatial`) to ensure:
+  - **Taste Skill (`taste` / `design-taste-frontend`):** Anti-slop frontend engineering. Enforces editorial art direction, dynamic typographical scales, intentional layout variance, and eliminates predictable "AI-made" tropes.
+  - **Impeccable (`impeccable`):** Rigorous anti-pattern detection and design polish engine (`/impeccable polish`, `/impeccable audit`, `/impeccable critique`, `/impeccable animate`).
   - High-end visual hierarchy and editorial elegance.
   - Tactile micro-interactions (magnetic hovers, cursor-responsive spotlights, smooth card tilts).
   - Harmonic spatial rhythm, generous breathing room, and dynamic viewport clamping.
@@ -29,9 +31,19 @@
 * **Framework:** React 19 (`react@^19.2.0`, `react-dom@^19.2.0`) + TypeScript 5.9 (`strict: true`)
 * **Build System:** Vite 7 with Rollup manual chunk caching (`vendor-react`, `vendor-lenis`, `vendor-radix`)
 * **Styling:** Tailwind CSS v4 (`@tailwindcss/vite`, `@theme` directives in `src/index.css`)
-* **Motion:** CSS keyframes in `src/index.css` (`animate-rise`, `animate-veil`, `animate-draw`, sheet/fade for Radix). GSAP was removed; one orchestrated intro (Preloader veil → Hero rise) is the only non-user-triggered motion.
+* **Motion:** one orchestrated intro (Preloader veil → Hero rise, ≤12px, 0.6s) plus a calm photo wipe on framed images (`data-reveal="image"`, driven by `useScrollReveal`). Text is never animated in; no hover lifts, shines, glows or gradient text. `BrandWave` (brochure ribbons) and the About word/photo strips are the only looping motion; reduced motion stops all of it.
   - `lenis` smooth scrolling via the shared instance in `src/lib/lenis.ts` (disabled under `prefers-reduced-motion`; anchor offsets come from `section[id] { scroll-margin-top }`).
-* **Accessible primitives:** `@radix-ui/react-dialog` (mobile nav drawer), `@radix-ui/react-tabs` (Embiotin `FormulaExplorer` hexagon ring).
+* **Accessible primitives:** `@radix-ui/react-dialog` (mobile nav drawer). The Embiotin `FormulaRing` hexagon ring is decorative (`aria-hidden`) and highlights the matching row of the full ingredient table, which stays the accessible source of the data.
+* **Anti-slop rules:** no glassmorphism or backdrop blur, no gradient text or decorative gradient washes, no identical icon-tile cards with coloured top bars, no tracked uppercase labels, no pills on static text, no decorative watermark numerals or appended arrow icons. Section labels use the neutral `Eyebrow` (plain small text). Radii: photos/panels `rounded-xl`, inputs/secondary buttons `rounded-lg`, pill only for the hero CTA.
+* **Content & Product Lineup Rules:**
+  - **Product Lineup (Strictly 2 Products):** The portfolio consists solely of **Embiotin** and **Emprotino**. **Emflat** has been permanently removed from the catalog, navigation, copy, and schema.
+  - **Emprotino Status:** Emprotino is officially released and active. Do not display any "Coming Soon", "Launching Soon", or "In Development" badges.
+  - **Trademark Policy:** Neither product carries a trademark symbol (`Embiotin`, NOT `Embiotin™`; `Emprotino`, NOT `Emprotino™`). Do not use `™` anywhere across the codebase.
+  - **Embiotin Positioning & Peripheral Neuropathy Mechanism:** Embiotin's primary clinical emphasis is on its **neuroscientific advantages** and cellular bioenergetics:
+    - *Prevents Deficiency-Induced Damage:* A severe lack of vitamin B5 causes "burning feet syndrome" and nerve degeneration; adequate levels prevent these specific deficiency-related neuropathies.
+    - *Precursor to Coenzyme A:* It converts into Coenzyme A (CoA), a vital molecule for cellular energy production, myelin sheath synthesis, and the maintenance of structural nerve health.
+    - Active agent: 100 mg Calcium Pantothenate (Vitamin B5) paired with Biotin and cofactors for dual neuro-protection and tissue vitality.
+  - **Preservation Rule:** Except for the above product catalog and positioning directives, maintain high scientific and clinical accuracy across all descriptions.
 * **Icons:** `react-icons` — `react-icons/lu` (Lucide) for UI, `react-icons/fa6` for social brands.
 * **Contact form:** `@emailjs/browser`, lazy-imported on submit when `VITE_EMAILJS_*` env vars are set (see `.env.example`); otherwise falls back to a pre-filled `mailto:`.
 * **Form & Communication:** `@emailjs/browser@^4.4.1` for inquiries.
@@ -49,7 +61,7 @@ C:\Users\bless\Documents\Emporius
 ├── src/
 │   ├── assets/
 │   │   ├── embiotin.webp / embiotin_2.webp   (Nutraceutical hair supplement)
-│   │   ├── emflat.webp                       (Gastrointestinal simethicone syrup)
+│   │   ├── emflat.webp                       (Archived asset - removed from active portfolio)
 │   │   ├── emprotein.webp                    (Advanced whey protein formula)
 │   │   ├── emporis_edge.webp                 (Corporate research laboratory)
 │   │   ├── emporis_logo.webp                 (Brand insignia)
@@ -88,10 +100,10 @@ C:\Users\bless\Documents\Emporius
    - Current: Navy overlay on `lab_img.webp`, gold button.
    - Design 2.0 Goal: Atmospheric Deep Purple vignette with Bright Cyan radial flare; headline featuring `"Restoring Trust"` in Vibrant Magenta (`#D51B70`); primary pill button in Magenta with hover shine; secondary pill in Healthcare Blue (`#263D99`); floating clinical trust badges.
 3. **`Products.tsx`**:
-   - Current: Alternating image rows with watermark numbers (`01`, `02`, `03`) and Coming Soon badges.
-   - Design 2.0 Goal: Lavender White canvas (`#F7F3FA`), category pills with color-coding (`Nutraceutical` = Healthcare Green `#5C9E31`, `Gastrointestinal` = Bright Cyan `#1599D0`, `Nutritional` = Healthcare Blue `#263D99`), smooth card image zoom, mobile swipeable or stacked cards.
+   - Current: Symmetrical 2-product showcase (01 Embiotin, 02 Emprotino). Both active and fully released without "coming soon" badges.
+   - Design 2.0 Goal: Lavender White canvas (`#F7F3FA`), category pills with color-coding (`Nutraceutical` = Healthcare Green `#5C9E31`, `Nutritional` = Healthcare Blue `#263D99`), smooth card image zoom, mobile swipeable or stacked cards.
 4. **`EmbiotinSection.tsx`**:
-   - Current: Detailed table and benefit list with gold borders.
+   - Current: Six-pillar formulation spotlight & interactive hex ring; emphasizes neuroscientific vitality and cellular energy alongside hair rejuvenation; no ™ branding.
    - Design 2.0 Goal: Deep Purple hero strip with Vibrant Magenta title accent; 4 clinical pillar cards with Healthcare Green icons; clean alternating comparison table (`#FFFFFF` & `#F7F3FA`) with active green checkmarks.
 5. **`Edge.tsx`**:
    - Current: Split screen with gold spotlight.
@@ -120,12 +132,14 @@ Detailed specs are in [`DESIGN.md`](./DESIGN.md). Always reference it for exact 
 * `--color-green-health`: `#5C9E31` (Wellness/nutrition tags, purity badges, logo accents)
 * `--color-lavender-white`: `#F7F3FA` (Card backgrounds, table rows, primary light canvas)
 * `--color-ink-deep`: `#200B29` (High-contrast text on light canvas)
-* `--color-muted-plum`: `#705F7B` (Secondary descriptions, captions, timestamps)
+* `--color-ink-soft`: `#46384F` (Running body text on light canvas)
+* `--color-muted-plum`: `#705F7B` (Captions, labels, table headers only)
+* **Colour distribution:** 60 light canvas / 30 brand purple (hero, product spotlights, Edge, footer) / 10 magenta (actions). Each product has one accent for marks only (Embiotin magenta, Emprotino blue-health); cyan and green only in the Emprotino serving chart. See DESIGN.md §2C.
 
 ### Typography
-* `font-display` / `--font-display`: `Cormorant Garamond` (headings, titles)
+* `font-display` / `--font-display`: `Source Serif 4` (headings, titles; 400, 600 for small item titles)
 * `font-sans` / `--font-sans`: `DM Sans` — the page default (paragraphs, buttons, navigation)
-* `font-tech` / `--font-tech`: `Space Grotesk` (dosages, badges, technical data)
+* Figures and dosages: DM Sans with `tabular-nums` (Space Grotesk / `font-tech` removed).
 * Fonts load from one `<link>` in `index.html` (not CSS `@import`).
 
 ### Responsive Standards

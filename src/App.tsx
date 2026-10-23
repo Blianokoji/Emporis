@@ -3,11 +3,13 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Products from "./components/Products";
 import EmbiotinSection from "./components/EmbiotinSection";
+import EmprotinoSection from "./components/EmprotinoSection";
 import About from "./components/About";
 import Edge from "./components/Edge";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Preloader from "./components/Preloader";
+import { useScrollReveal } from "./hooks/useScrollReveal";
 
 const INTRO_KEY = "emporis-intro-seen";
 
@@ -32,6 +34,7 @@ const App: React.FC = () => {
   const [introPlaying, setIntroPlaying] = useState(shouldPlayIntro);
   // Hero entrance waits for the intro veil only on the first visit of a session.
   const [introDelay] = useState(introPlaying ? "1s" : "0s");
+  useScrollReveal();
 
   const handleIntroDone = () => {
     markIntroSeen();
@@ -46,6 +49,7 @@ const App: React.FC = () => {
         <Hero />
         <Products />
         <EmbiotinSection />
+        <EmprotinoSection />
         <About />
         <Edge />
         <Contact />

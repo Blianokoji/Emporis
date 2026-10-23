@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { LuMenu, LuX, LuMail } from "react-icons/lu";
+import { LuMenu, LuX } from "react-icons/lu";
 import logo from "../assets/emporis_logo.webp";
 import { lenis, scrollToHash } from "../lib/lenis";
 import { useActiveSection } from "../hooks/useActiveSection";
@@ -13,8 +13,8 @@ const links = [
 ] as const;
 
 // Sub-sections that should light up their parent link.
-const SECTION_IDS = ["home", "products", "embiotin", "about", "edge", "contact"] as const;
-const PARENT: Record<string, string> = { embiotin: "products", edge: "about" };
+const SECTION_IDS = ["home", "products", "embiotin", "emprotino", "about", "edge", "contact"] as const;
+const PARENT: Record<string, string> = { embiotin: "products", emprotino: "products", edge: "about" };
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -39,19 +39,17 @@ const Navbar: React.FC = () => {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,backdrop-filter] duration-500 ${
-        scrolled || menuOpen ? "glass-purple" : "border-transparent"
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color] duration-300 ease-out ${
+        scrolled || menuOpen ? "border-white/10 bg-purple-brand" : "border-transparent bg-transparent"
       }`}
     >
       <nav aria-label="Primary" className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
-        <a href="#home" className="flex items-center gap-3 rounded-md">
+        <a href="#home" className="flex min-h-11 items-center gap-3 rounded-md">
           <img src={logo} alt="" width={32} height={36} className="h-8 w-auto" />
-          <span className="font-display text-xl font-medium tracking-[0.04em] text-lavender-white">
-            Emporis Health Care
-          </span>
+          <span className="font-display text-xl font-medium text-lavender-white">Emporis Health Care</span>
         </a>
 
-        <ul className="hidden items-center gap-9 md:flex">
+        <ul className="hidden items-center gap-8 md:flex">
           {links.map(({ label, href }) => {
             const isActive = active === href.slice(1);
             return (
@@ -59,14 +57,15 @@ const Navbar: React.FC = () => {
                 <a
                   href={href}
                   aria-current={isActive ? "location" : undefined}
-                  className={`group relative py-2 text-sm tracking-wide transition-colors hover:text-lavender-white ${
-                    isActive ? "text-lavender-white" : "text-lavender-white/75"
+                  className={`relative inline-flex min-h-11 items-center text-sm transition-colors duration-150 hover:text-lavender-white ${
+                    isActive ? "text-lavender-white" : "text-lavender-white/70"
                   }`}
                 >
                   {label}
                   <span
-                    className={`absolute inset-x-0 -bottom-0.5 h-0.5 origin-left rounded-full bg-magenta-vibrant transition-transform duration-300 ease-out-expo ${
-                      isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                    aria-hidden
+                    className={`absolute inset-x-0 bottom-2 h-px bg-magenta-vibrant transition-opacity duration-150 ${
+                      isActive ? "opacity-100" : "opacity-0"
                     }`}
                   />
                 </a>
@@ -77,7 +76,7 @@ const Navbar: React.FC = () => {
 
         <Dialog.Root open={menuOpen} onOpenChange={handleMenuChange}>
           <Dialog.Trigger
-            className="grid size-11 place-items-center rounded-full text-lavender-white md:hidden"
+            className="grid size-11 place-items-center rounded-lg text-lavender-white transition-colors duration-150 hover:bg-white/10 md:hidden"
             aria-label="Open menu"
           >
             <LuMenu className="size-6" aria-hidden />
@@ -93,37 +92,45 @@ const Navbar: React.FC = () => {
                 pendingHash.current = null;
                 scrollToHash(hash);
               }}
-              className="fixed inset-x-3 top-3 z-50 rounded-3xl bg-purple-brand p-6 text-lavender-white shadow-2xl shadow-ink-deep/40 data-[state=closed]:animate-sheet-out data-[state=open]:animate-sheet-in"
+              className="fixed inset-x-3 top-3 z-50 rounded-xl border border-white/10 bg-purple-brand p-6 text-lavender-white data-[state=closed]:animate-sheet-out data-[state=open]:animate-sheet-in"
             >
               <div className="flex items-center justify-between">
                 <Dialog.Title className="font-display text-xl">Emporis Health Care</Dialog.Title>
-                <Dialog.Close className="grid size-11 place-items-center rounded-full bg-white/10" aria-label="Close menu">
+                <Dialog.Close
+                  className="grid size-11 place-items-center rounded-lg border border-white/15 transition-colors duration-150 hover:bg-white/10"
+                  aria-label="Close menu"
+                >
                   <LuX className="size-5" aria-hidden />
                 </Dialog.Close>
               </div>
               <ul className="mt-6 divide-y divide-white/10 border-y border-white/10">
-                {links.map(({ label, href }) => (
-                  <li key={href}>
-                    <a
-                      href={href}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        pendingHash.current = href;
-                        handleMenuChange(false);
-                      }}
-                      className="flex items-center justify-between py-4 font-display text-3xl font-light"
-                    >
-                      {label}
-                      {active === href.slice(1) && <span className="size-2 rounded-full bg-magenta-vibrant" aria-hidden />}
-                    </a>
-                  </li>
-                ))}
+                {links.map(({ label, href }) => {
+                  const isActive = active === href.slice(1);
+                  return (
+                    <li key={href}>
+                      <a
+                        href={href}
+                        aria-current={isActive ? "location" : undefined}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          pendingHash.current = href;
+                          handleMenuChange(false);
+                        }}
+                        className={`flex min-h-14 items-center justify-between font-display text-3xl font-normal ${
+                          isActive ? "text-lavender-white" : "text-lavender-white/75"
+                        }`}
+                      >
+                        {label}
+                        {isActive && <span className="h-px w-6 bg-magenta-vibrant" aria-hidden />}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
               <a
                 href="mailto:info@emporishealthcare.com"
-                className="mt-6 inline-flex items-center gap-2 text-sm text-lavender-white/75"
+                className="mt-4 inline-flex min-h-11 items-center text-sm text-lavender-white/75 transition-colors duration-150 hover:text-lavender-white"
               >
-                <LuMail className="size-4" aria-hidden />
                 info@emporishealthcare.com
               </a>
             </Dialog.Content>
