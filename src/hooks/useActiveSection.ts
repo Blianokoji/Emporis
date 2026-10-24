@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 
-/** Returns the id of the section currently crossing the upper third of the viewport. */
-export function useActiveSection(ids: readonly string[]): string {
+/**
+ * Returns the id of the section currently crossing the upper third of the viewport.
+ * `route` re-attaches the observer when the page changes and its sections remount.
+ */
+export function useActiveSection(ids: readonly string[], route: string): string {
   const [active, setActive] = useState(ids[0]);
 
   useEffect(() => {
@@ -18,7 +21,7 @@ export function useActiveSection(ids: readonly string[]): string {
       if (el) observer.observe(el);
     }
     return () => observer.disconnect();
-  }, [ids]);
+  }, [ids, route]);
 
   return active;
 }

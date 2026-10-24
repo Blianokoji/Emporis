@@ -14,14 +14,28 @@
 * **Antigravity (Partner Agent):** Executes **Minor Tasks**. Manages CSS token definitions, bundle caching, preconnect hints, package updates, lint/build validations, and analysis summaries.
 * **Git Safety:** Always work on `enhancements/design-2.0`. **Do not push** to `origin` unless explicitly requested by the user.
 
-### B. Agent & Skill Directives
-* **Graphify:** Utilize `graphify` to map and analyze component dependency graphs, asset references, and CSS token linkages across the application before making structural modifications.
-* **Design Skills & Anti-Slop Guardrails:** Invoke `taste` (`design-taste-frontend`), `impeccable`, and design skills (`ui-ux-pro-max`, `design-spells`, `design-spatial`) to ensure:
-  - **Taste Skill (`taste` / `design-taste-frontend`):** Anti-slop frontend engineering. Enforces editorial art direction, dynamic typographical scales, intentional layout variance, and eliminates predictable "AI-made" tropes.
-  - **Impeccable (`impeccable`):** Rigorous anti-pattern detection and design polish engine (`/impeccable polish`, `/impeccable audit`, `/impeccable critique`, `/impeccable animate`).
-  - High-end visual hierarchy and editorial elegance.
-  - Tactile micro-interactions (magnetic hovers, cursor-responsive spotlights, smooth card tilts).
-  - Harmonic spatial rhythm, generous breathing room, and dynamic viewport clamping.
+### B. Agent & Skill Directives (Claude Design Suite)
+* **Claude Design Core (`claude-design`):** Portable engine adapted from Anthropic's Claude.ai design system architecture (`jiji262/claude-design-skill`).
+  - **Priority #0 Fact Verification:** Research real-world facts before assuming product specs, release timelines, or formulations.
+  - **Core Asset Protocol:** Logos, authentic product photography, and UI screenshots are first-class citizens.
+  - **Design Direction Advisor:** Provides 3 differentiated directions from 10 design philosophies (Swiss Editorial, Bauhaus Geometric, Kenya Hara, Dieter Rams, Magazine Editorial, Risograph, Brutalist, etc.).
+  - **Format Playbooks:** Generates HTML artifacts, design canvases, interactive prototype shells, slide decks, and timeline animations.
+* **UI/UX Pro Max (`ui-ux-pro-max`):** 50+ design styles, 97 color palettes, 57 font pairings, 99 UX rules, and accessibility benchmarks.
+* **Frontend Design (`frontend-design`):** Enforces explicit aesthetic stances, DFII scoring (Aesthetic Impact, Context Fit, Feasibility, Performance vs Risk), and blocks generic templates.
+* **Design Spells (`design-spells`):** Micro-interactions, tactile hover physics, cursor spotlights, and subtle delight without visual clutter.
+* **Taste Skill (`taste` / `design-taste-frontend`):** Anti-slop frontend engineering, dynamic typography scales, and intentional layout variance.
+* **Impeccable (`impeccable`):** Rigorous anti-pattern detection and design polish engine (`/impeccable polish`, `/impeccable audit`, `/impeccable critique`, `/impeccable animate`).
+* **Design Agents in `.claude/agents/`:**
+  - `claude-design-lead.md`: Master Design Director & Visual System Architect.
+  - `claude-ui-specialist.md`: Frontend Craft & Accessible Interaction Engineer.
+  - `claude-image-asset-producer.md`: Visual Media & Responsive Asset Director.
+  - `claude-visual-critic.md`: Anti-Slop & Quality Gatekeeper.
+* **Image & Visual Media Libraries:**
+  - `lucide-react`: Modern SVG iconography standard.
+  - `motion`: High-performance declarative animation library for React 19.
+  - `src/lib/images.ts`: Curated Unsplash CDN photography collections (Laboratory, Neurology, Wellness, Abstract), dynamic zero-CLS SVG placeholder generators, and responsive `srcset` builders.
+  - `src/lib/utils.ts`: `cn()` utility (`clsx` + `tailwind-merge`) for clean, collision-free Tailwind class management.
+  - `scripts/design/image-asset-helper.js`: Asset audits (`audit-assets`) and vector placeholder generation (`generate-svg`).
 * **Agent Squads & Subagents:** When tackling multi-component overhauls across the codebase, leverage subagents (`subagent-driven-development`, parallel agents) to refactor independent visual domains simultaneously (e.g., one agent on `Hero`/`Navbar`, another on `Products`/`EmbiotinSection`, another on `Edge`/`About`/`Contact`).
 
 ---
@@ -31,8 +45,7 @@
 * **Framework:** React 19 (`react@^19.2.0`, `react-dom@^19.2.0`) + TypeScript 5.9 (`strict: true`)
 * **Build System:** Vite 7 with Rollup manual chunk caching (`vendor-react`, `vendor-lenis`, `vendor-radix`)
 * **Styling:** Tailwind CSS v4 (`@tailwindcss/vite`, `@theme` directives in `src/index.css`)
-* **Motion:** one orchestrated intro (Preloader veil → Hero rise, ≤12px, 0.6s) plus a calm photo wipe on framed images (`data-reveal="image"`, driven by `useScrollReveal`). Text is never animated in; no hover lifts, shines, glows or gradient text. `BrandWave` (brochure ribbons) and the About word/photo strips are the only looping motion; reduced motion stops all of it.
-  - `lenis` smooth scrolling via the shared instance in `src/lib/lenis.ts` (disabled under `prefers-reduced-motion`; anchor offsets come from `section[id] { scroll-margin-top }`).
+* **Motion & Animation:** `motion` (declarative spring animations) + `lenis` smooth scrolling via shared instance in `src/lib/lenis.ts` (disabled under `prefers-reduced-motion`; anchor offsets come from `section[id] { scroll-margin-top }`).
 * **Accessible primitives:** `@radix-ui/react-dialog` (mobile nav drawer). The Embiotin `FormulaRing` hexagon ring is decorative (`aria-hidden`) and highlights the matching row of the full ingredient table, which stays the accessible source of the data.
 * **Anti-slop rules:** no glassmorphism or backdrop blur, no gradient text or decorative gradient washes, no identical icon-tile cards with coloured top bars, no tracked uppercase labels, no pills on static text, no decorative watermark numerals or appended arrow icons. Section labels use the neutral `Eyebrow` (plain small text). Radii: photos/panels `rounded-xl`, inputs/secondary buttons `rounded-lg`, pill only for the hero CTA.
 * **Content & Product Lineup Rules:**
@@ -44,7 +57,7 @@
     - *Precursor to Coenzyme A:* It converts into Coenzyme A (CoA), a vital molecule for cellular energy production, myelin sheath synthesis, and the maintenance of structural nerve health.
     - Active agent: 100 mg Calcium Pantothenate (Vitamin B5) paired with Biotin and cofactors for dual neuro-protection and tissue vitality.
   - **Preservation Rule:** Except for the above product catalog and positioning directives, maintain high scientific and clinical accuracy across all descriptions.
-* **Icons:** `react-icons` — `react-icons/lu` (Lucide) for UI, `react-icons/fa6` for social brands.
+* **Icons:** `lucide-react` and `react-icons` — `react-icons/lu` / `lucide-react` for UI, `react-icons/fa6` for social brands.
 * **Contact form:** `@emailjs/browser`, lazy-imported on submit when `VITE_EMAILJS_*` env vars are set (see `.env.example`); otherwise falls back to a pre-filled `mailto:`.
 * **Form & Communication:** `@emailjs/browser@^4.4.1` for inquiries.
 
@@ -57,6 +70,11 @@ C:\Users\bless\Documents\Emporius
 ├── public/
 │   ├── emporis_logo.png
 │   ├── emporis_logo.svg
+│   ├── placeholders/
+│   │   ├── product-embiotin.svg
+│   │   ├── product-emprotino.svg
+│   │   ├── hero-lab-research.svg
+│   │   └── about-scientific-team.svg
 │   └── favicon.ico
 ├── src/
 │   ├── assets/
@@ -77,46 +95,26 @@ C:\Users\bless\Documents\Emporius
 │   │   ├── About.tsx                         (Mission, values, and GridMotion interactive mosaic)
 │   │   ├── Contact.tsx                       (Kochi headquarters info & inquiry channel)
 │   │   ├── Footer.tsx                        (Brand disclaimer, columns, and back-to-top)
-│   │   ├── SpotlightCard.tsx                 (Radial cursor-tracking spotlight container)
-│   │   ├── GridMotion.tsx                    (Interactive mouse-driven image/text grid)
-│   │   ├── PixelTransition.tsx               (Interactive pixel-dissolve comparison card)
-│   │   ├── TextType.tsx                      (Typewriter effect with variable randomized speed)
-│   │   ├── GlassCard.tsx                     (Frosted glass container primitive)
-│   │   └── MediaFeature.tsx                  (Two-column image/copy layout primitive)
+│   │   ├── Eyebrow.tsx                       (Subtle section category label)
+│   │   ├── FormulaPanel.tsx                  (Ingredient details panel)
+│   │   ├── FormulaRing.tsx                   (Hexagonal formulation ring)
+│   │   ├── FormulaTable.tsx                  (Clinical formulation table)
+│   │   └── ProductStandard.tsx               (Standard certification badge card)
+│   ├── lib/
+│   │   ├── images.ts                         (Curated Unsplash CDN photography & SVG placeholders)
+│   │   ├── lenis.ts                          (Smooth scrolling instance)
+│   │   ├── navigation.ts                     (Accessible page routing and smooth scrolling anchors)
+│   │   └── utils.ts                          (cn utility with clsx and tailwind-merge)
 │   ├── App.tsx                               (Root layout with lazy loading & GSAP fade-ups)
 │   ├── main.tsx                              (React 19 entry point)
 │   └── index.css                             (Tailwind v4 @theme, brochure tokens, utilities)
+├── scripts/
+│   └── design/
+│       └── image-asset-helper.js             (CLI utility for asset audits and vector SVG placeholders)
 ├── DESIGN.md                                 (Comprehensive Master Design System 2.0)
 ├── index.html                                (SEO metadata, JSON-LD Schema, font preconnects)
 └── vite.config.ts                            (Optimized manual chunk caching configuration)
 ```
-
-### Detailed Component Blueprints for Design 2.0
-
-1. **`Navbar.tsx`**:
-   - Current: Transparent to navy background with basic text links.
-   - Design 2.0 Goal: Deep Brand Purple glass (`.glass-purple`), Vibrant Magenta active underline indicators, mobile responsive slide-out drawer, accessible menu button.
-2. **`Hero.tsx`**:
-   - Current: Navy overlay on `lab_img.webp`, gold button.
-   - Design 2.0 Goal: Atmospheric Deep Purple vignette with Bright Cyan radial flare; headline featuring `"Restoring Trust"` in Vibrant Magenta (`#D51B70`); primary pill button in Magenta with hover shine; secondary pill in Healthcare Blue (`#263D99`); floating clinical trust badges.
-3. **`Products.tsx`**:
-   - Current: Symmetrical 2-product showcase (01 Embiotin, 02 Emprotino). Both active and fully released without "coming soon" badges.
-   - Design 2.0 Goal: Lavender White canvas (`#F7F3FA`), category pills with color-coding (`Nutraceutical` = Healthcare Green `#5C9E31`, `Nutritional` = Healthcare Blue `#263D99`), smooth card image zoom, mobile swipeable or stacked cards.
-4. **`EmbiotinSection.tsx`**:
-   - Current: Six-pillar formulation spotlight & interactive hex ring; emphasizes neuroscientific vitality and cellular energy alongside hair rejuvenation; no ™ branding.
-   - Design 2.0 Goal: Deep Purple hero strip with Vibrant Magenta title accent; 4 clinical pillar cards with Healthcare Green icons; clean alternating comparison table (`#FFFFFF` & `#F7F3FA`) with active green checkmarks.
-5. **`Edge.tsx`**:
-   - Current: Split screen with gold spotlight.
-   - Design 2.0 Goal: SpotlightCard with Vibrant Magenta / Bright Cyan dynamic spotlight halo; high-contrast Deep Purple text container paired with laboratory imagery.
-6. **`About.tsx`**:
-   - Current: GridMotion with cream glass cards.
-   - Design 2.0 Goal: Refined bento-grid value cards on Lavender White canvas with delicate plum borders (`rgba(66, 16, 79, 0.08)`) and hover elevation physics.
-7. **`Contact.tsx`**:
-   - Current: Static address block on cream background.
-   - Design 2.0 Goal: Sleek clinical contact portal with interactive social pills, email link with Cyan hover glow, and accessible form fields with Healthcare Blue focus rings.
-8. **`Footer.tsx`**:
-   - Current: Navy footer with gold links.
-   - Design 2.0 Goal: Deep Brand Purple foundation (`#42104F`), top border in `rgba(213, 27, 112, 0.20)`, Lavender White typography, and animated "Back to Top" button.
 
 ---
 
@@ -161,8 +159,12 @@ npm run build
 # Run ESLint validation
 npm run lint
 
-# Preview built production distribution
-npm run preview
+# Audit assets & generate branded SVG placeholders
+node scripts/design/image-asset-helper.js audit-assets
+node scripts/design/image-asset-helper.js generate-svg
+
+# Run Impeccable UI detector
+.\.claude\skills\impeccable\scripts\impeccable.cmd detect
 ```
 
 ### Quality Guardrails for Claude

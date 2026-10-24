@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "wouter";
 import embiotinImg from "../assets/embiotin.webp";
 import emproteinImg from "../assets/emprotein.webp";
 import Eyebrow from "./Eyebrow";
@@ -13,8 +14,8 @@ interface Product {
   width: number;
   height: number;
   category: Category;
-  /** Product chapter that "View Formula" opens. */
-  anchor: string;
+  /** Product page that "View Formula" opens. */
+  href: string;
   /** Crop focus inside the shared 4:5 frame. */
   focus: string;
 }
@@ -27,13 +28,13 @@ const CATEGORY_DOT: Record<Category, string> = {
 const products: Product[] = [
   {
     name: "Embiotin",
-    tagline: "Neuro-Cellular Vitality & Clinical Formulation by Emporis",
-    desc: "Emporis Embiotin is a premium clinical formulation featuring 100 mg Calcium Pantothenate (Vitamin B5), Biotin, and vital cofactors. Clinically positioned to combat peripheral neuropathy—driving Coenzyme A (CoA) synthesis and myelin sheath maintenance—while fueling cellular energy and follicular vitality.",
+    tagline: "Advanced Hair Growth Supplement by Emporis",
+    desc: "Emporis Embiotin is a premium clinical biotin formulation fortified with essential vitamins and minerals. Embiotin strengthens hair from the root, enhances shine, and promotes healthy regrowth — helping restore confidence naturally.",
     image: embiotinImg,
     width: 853,
     height: 1052,
     category: "Nutraceutical",
-    anchor: "embiotin",
+    href: "/embiotin",
     focus: "object-[50%_40%]",
   },
   {
@@ -44,7 +45,7 @@ const products: Product[] = [
     width: 1600,
     height: 1120,
     category: "Nutritional",
-    anchor: "emprotino",
+    href: "/emprotino",
     focus: "object-[60%_50%]",
   },
 ];
@@ -65,7 +66,7 @@ const ProductRow: React.FC<{ product: Product; flip: boolean }> = ({ product, fl
   >
     <div
       data-reveal="image"
-      className={`relative aspect-[4/3] overflow-hidden rounded-xl bg-purple-deep md:aspect-[4/5] ${flip ? "md:order-2" : ""}`}
+      className={`relative aspect-[4/3] overflow-hidden rounded-xl bg-lavender-tint md:aspect-[4/5] ${flip ? "md:order-2" : ""}`}
     >
       <img
         src={product.image}
@@ -84,12 +85,12 @@ const ProductRow: React.FC<{ product: Product; flip: boolean }> = ({ product, fl
       </h3>
       <p className="mt-3 font-medium text-ink-deep">{product.tagline}</p>
       <p className="mt-6 max-w-[60ch] leading-[1.6] text-ink-soft">{product.desc}</p>
-      <a
-        href={`#${product.anchor}`}
+      <Link
+        href={product.href}
         className="mt-6 inline-flex min-h-11 w-fit items-center font-medium text-magenta-vibrant underline decoration-magenta-vibrant/30 decoration-1 underline-offset-[6px] transition-colors duration-200 hover:decoration-magenta-vibrant"
       >
         View Formula
-      </a>
+      </Link>
     </div>
   </article>
 );
@@ -109,7 +110,7 @@ const Products: React.FC = () => (
 
       <div className="divide-y divide-purple-brand/10">
         {products.map((product, i) => (
-          <ProductRow key={product.anchor} product={product} flip={i % 2 === 1} />
+          <ProductRow key={product.href} product={product} flip={i % 2 === 1} />
         ))}
       </div>
     </div>

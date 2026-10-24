@@ -13,13 +13,13 @@ export const productAccent = {
   emprotino: { fill: "bg-blue-health", text: "text-blue-health" },
 } as const;
 
-/** Spotlight band: the purple brand anchor every product opens on. */
-export const spotlightBand = "bg-purple-brand text-lavender-white";
+/** Spotlight band: the soft lavender field every product page opens on. */
+export const spotlightBand = "bg-lavender-tint text-ink-deep";
 export const spotlightGrid = "grid items-center gap-12 md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-20";
 export const spotlightName = "block text-[clamp(3rem,7vw,5.5rem)] leading-[0.95] tracking-[0.01em]";
-export const spotlightSubtitle = "mt-5 block text-[clamp(1.35rem,2.4vw,1.85rem)] leading-snug text-lavender-white/75";
-export const spotlightLabel = "text-lavender-white/60";
-export const spotlightCopy = "mt-8 max-w-[60ch] space-y-4 text-[1.0625rem] leading-[1.65]";
+export const spotlightSubtitle = "mt-5 block text-[clamp(1.35rem,2.4vw,1.85rem)] leading-snug text-ink-soft";
+export const spotlightLabel = "text-muted-plum";
+export const spotlightCopy = "mt-8 max-w-[60ch] space-y-4 text-[1.0625rem] leading-[1.65] text-ink-soft";
 /** Tall photo frame beside the spotlight copy. */
 export const spotlightFrame =
   "relative mx-auto aspect-[2/3] w-full max-w-sm overflow-hidden rounded-xl md:mx-0 md:justify-self-end";
@@ -34,9 +34,12 @@ export const pillarRule = "absolute -top-px left-0 h-0.5 w-10";
 export const pillarTitle = "font-display text-[clamp(1.4rem,2vw,1.6rem)] leading-tight font-semibold text-ink-deep";
 export const pillarText = "mt-3 max-w-[40ch] leading-[1.6] text-ink-soft";
 
-/** Formula band: a light, white surface so the data reads like a printed label panel. */
-export const formulaBand = "bg-white text-ink-deep";
+/** Formula band surfaces (see FormulaPanel): the panel and its visual card always contrast by one tone step. */
+export const formulaSurface = {
+  white: { band: "bg-white", card: "bg-lavender-white" },
+  lavender: { band: "bg-lavender-white", card: "bg-white" },
+} as const;
 export const formulaHeader = "flex flex-col justify-between gap-4 border-b border-purple-brand/10 pb-8 md:flex-row md:items-end";
 export const formulaCount = "text-sm text-muted-plum tabular-nums";
 export const formulaGrid = "mt-12 grid items-center gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16";
-export const visualCard = "min-w-0 rounded-xl bg-lavender-white p-6 sm:p-8";
+export const visualCard = "min-w-0 rounded-xl p-6 sm:p-8";

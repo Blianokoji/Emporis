@@ -10,24 +10,24 @@ const standards = [
 ];
 
 const Edge: React.FC = () => (
-  <section id="edge" aria-labelledby="edge-title" className="grid bg-purple-brand text-lavender-white lg:grid-cols-2">
+  <section id="edge" aria-labelledby="edge-title" className="grid bg-lavender-tint text-ink-deep lg:grid-cols-2">
     <div className="flex items-center px-5 pt-[clamp(4.5rem,10vw,8rem)] pb-12 sm:px-8 md:px-12 lg:pb-[clamp(4.5rem,10vw,8rem)] xl:px-20">
       <div className="max-w-xl">
-        <Eyebrow tone="text-lavender-white/60">Corporate Distinction</Eyebrow>
+        <Eyebrow>Corporate Distinction</Eyebrow>
         <h2 id="edge-title" className="mt-4 font-display text-[clamp(2.5rem,5vw,4rem)] leading-[1.05] font-normal tracking-[-0.01em]">
           The Emporis Edge
         </h2>
-        <p className="mt-6 leading-relaxed text-lavender-white/85">
+        <p className="mt-6 leading-relaxed text-ink-soft">
           At Emporis, we don’t just manufacture formulations — we build long-term trust through absolute scientific
           integrity, transparency, and ethical standards.
         </p>
-        <p className="mt-4 leading-relaxed text-lavender-white/70">
+        <p className="mt-4 leading-relaxed text-ink-soft">
           We are steadily expanding our portfolio across therapeutic areas, focusing on nutritional, gastrointestinal,
           and general wellness segments to serve every phase of care.
         </p>
-        <ul className="mt-10 border-t border-lavender-white/15">
+        <ul className="mt-10 border-t border-purple-brand/12">
           {standards.map((s) => (
-            <li key={s} className="border-b border-lavender-white/15 py-4 leading-snug">
+            <li key={s} className="border-b border-purple-brand/12 py-4 leading-snug text-ink-deep">
               {s}
             </li>
           ))}

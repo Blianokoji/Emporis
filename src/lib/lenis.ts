@@ -17,6 +17,16 @@ export const lenis: Lenis | null = prefersReducedMotion
 export function scrollToHash(hash: string): void {
   const target = document.querySelector<HTMLElement>(hash);
   if (!target) return;
-  if (lenis) lenis.scrollTo(target, { force: true });
+  if (lenis) {
+    // After a route change Lenis may still hold the previous page's height and clamp the scroll; re-measure first.
+    lenis.resize();
+    lenis.scrollTo(target, { force: true });
+  }
   else target.scrollIntoView();
+}
+
+/** Jumps to the top of the page without animation (used when a new route renders). */
+export function scrollToTop(): void {
+  if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
+  else window.scrollTo(0, 0);
 }

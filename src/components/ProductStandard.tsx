@@ -20,7 +20,7 @@ const ProductStandard: React.FC<ProductStandardProps> = ({ title, children, cred
     <div className={`${container} grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:gap-16`}>
       <div>
         <Eyebrow>Purity &amp; Potency</Eyebrow>
-        <h3 className={`mt-4 text-ink-deep ${subheading}`}>{title}</h3>
+        <h2 className={`mt-4 text-ink-deep ${subheading}`}>{title}</h2>
       </div>
       <div>
         <blockquote className="max-w-[60ch] border-l border-purple-brand/20 pl-6 font-display text-[clamp(1.15rem,1.9vw,1.375rem)] leading-[1.6] text-ink-deep md:pl-8">

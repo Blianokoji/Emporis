@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { LuMenu, LuX } from "react-icons/lu";
 import logo from "../assets/emporis_logo.webp";
-import { lenis, scrollToHash } from "../lib/lenis";
+import { useLocation } from "wouter";
+import { lenis } from "../lib/lenis";
+import { useGoToSection } from "../lib/navigation";
 import { useActiveSection } from "../hooks/useActiveSection";
 
 const links = [
@@ -12,17 +14,20 @@ const links = [
   { label: "Contact", href: "#contact" },
 ] as const;
 
-// Sub-sections that should light up their parent link.
-const SECTION_IDS = ["home", "products", "embiotin", "emprotino", "about", "edge", "contact"] as const;
-const PARENT: Record<string, string> = { embiotin: "products", emprotino: "products", edge: "about" };
+// Home-page sections; Edge lights up its parent link. Product pages always light up "Products".
+const SECTION_IDS = ["home", "products", "about", "edge", "contact"] as const;
+const PARENT: Record<string, string> = { edge: "about" };
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   // Anchor chosen in the mobile menu; scrolled to once the dialog's scroll lock is released.
   const pendingHash = useRef<string | null>(null);
-  const activeId = useActiveSection(SECTION_IDS);
-  const active = PARENT[activeId] ?? activeId;
+  const [location] = useLocation();
+  const onHome = location === "/";
+  const goToSection = useGoToSection();
+  const activeId = useActiveSection(SECTION_IDS, location);
+  const active = onHome ? (PARENT[activeId] ?? activeId) : "products";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -40,11 +45,18 @@ const Navbar: React.FC = () => {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color] duration-300 ease-out ${
-        scrolled || menuOpen ? "border-white/10 bg-purple-brand" : "border-transparent bg-transparent"
+        scrolled || menuOpen || !onHome ? "border-white/10 bg-purple-brand" : "border-transparent bg-transparent"
       }`}
     >
       <nav aria-label="Primary" className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
-        <a href="#home" className="flex min-h-11 items-center gap-3 rounded-md">
+        <a
+          href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            goToSection("#home");
+          }}
+          className="flex min-h-11 items-center gap-3 rounded-md"
+        >
           <img src={logo} alt="" width={32} height={36} className="h-8 w-auto" />
           <span className="font-display text-xl font-medium text-lavender-white">Emporis Health Care</span>
         </a>
@@ -55,8 +67,12 @@ const Navbar: React.FC = () => {
             return (
               <li key={href}>
                 <a
-                  href={href}
+                  href={`/${href}`}
                   aria-current={isActive ? "location" : undefined}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    goToSection(href);
+                  }}
                   className={`relative inline-flex min-h-11 items-center text-sm transition-colors duration-150 hover:text-lavender-white ${
                     isActive ? "text-lavender-white" : "text-lavender-white/70"
                   }`}
@@ -90,7 +106,7 @@ const Navbar: React.FC = () => {
                 if (!hash) return;
                 e.preventDefault();
                 pendingHash.current = null;
-                scrollToHash(hash);
+                goToSection(hash);
               }}
               className="fixed inset-x-3 top-3 z-50 rounded-xl border border-white/10 bg-purple-brand p-6 text-lavender-white data-[state=closed]:animate-sheet-out data-[state=open]:animate-sheet-in"
             >
@@ -109,7 +125,7 @@ const Navbar: React.FC = () => {
                   return (
                     <li key={href}>
                       <a
-                        href={href}
+                        href={`/${href}`}
                         aria-current={isActive ? "location" : undefined}
                         onClick={(e) => {
                           e.preventDefault();

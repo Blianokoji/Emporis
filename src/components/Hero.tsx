@@ -17,7 +17,7 @@ const Hero: React.FC = () => (
       className="absolute inset-0 -z-20 size-full object-cover object-[60%_center]"
     />
     {/* Directional scrim in the deepest brand purple: dense behind the copy, thin over the lab so the photo keeps its own colour */}
-    <div aria-hidden className="absolute inset-0 -z-10 bg-linear-to-r from-purple-deep/95 via-purple-deep/75 to-purple-deep/30" />
+    <div aria-hidden className="absolute inset-0 -z-10 bg-linear-to-r from-purple-deep/85 via-purple-deep/55 to-purple-deep/15" />
 
     <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-5 pt-28 pb-12 sm:px-8 lg:px-10">
       <p className="animate-rise text-base text-lavender-white/70" style={rise(0)}>

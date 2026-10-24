@@ -59,7 +59,7 @@ To maintain strict WCAG 2.1 AA readability across all canvases:
 The palette stays; the harshness came from using every hue everywhere. Distribution follows 60 / 30 / 10:
 
 - **60 — Light canvas:** Lavender White and white carry most sections, alternating as tone steps (no lines or shadows between them).
-- **30 — Brand purple:** Deep Brand Purple is reserved for the hero scrim (via Purple Deep), the two product spotlight bands, The Emporis Edge and the footer. Formula tables sit on light surfaces.
+- **30 — Brand purple:** Deep Brand Purple is reserved for the hero scrim (via Purple Deep), the navbar, the mobile drawer and the footer. The product spotlight bands and The Emporis Edge use Lavender Tint `#EDE6F0` (brand purple folded ~6% into lavender-white) with ink text. Formula tables sit on light surfaces.
 - **10 — Accent:** Vibrant Magenta is the single action colour (primary CTA, text links, active nav rule, send button).
 - **Product identity:** each product owns one accent, used only where it marks something (pillar rule, active table row, visualiser highlight): Embiotin = Vibrant Magenta, Emprotino = Healthcare Blue. Headlines and subtitles stay in ink or lavender-white, never in an accent.
 - **Cyan & Green:** retired from decoration. They appear only in the Emprotino serving bar (the one categorical chart: `#4560C4`, `#1599D0`, `#5C9E31`, validated for colour-blind separation, each directly labelled).

@@ -1,15 +1,14 @@
-import React, { useState, type CSSProperties } from "react";
+import React, { Suspense, lazy, useEffect, useState, type CSSProperties } from "react";
+import { Redirect, Route, Switch, useLocation } from "wouter";
 import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Products from "./components/Products";
-import EmbiotinSection from "./components/EmbiotinSection";
-import EmprotinoSection from "./components/EmprotinoSection";
-import About from "./components/About";
-import Edge from "./components/Edge";
-import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Preloader from "./components/Preloader";
-import { useScrollReveal } from "./hooks/useScrollReveal";
+import Home from "./pages/Home";
+import { scrollToTop } from "./lib/lenis";
+
+// Product pages are split out so the home page ships without their tables and visualisers.
+const EmbiotinPage = lazy(() => import("./pages/EmbiotinPage"));
+const EmprotinoPage = lazy(() => import("./pages/EmprotinoPage"));
 
 const INTRO_KEY = "emporis-intro-seen";
 
@@ -34,7 +33,12 @@ const App: React.FC = () => {
   const [introPlaying, setIntroPlaying] = useState(shouldPlayIntro);
   // Hero entrance waits for the intro veil only on the first visit of a session.
   const [introDelay] = useState(introPlaying ? "1s" : "0s");
-  useScrollReveal();
+  const [location] = useLocation();
+
+  // A new page opens at the top, unless the URL targets a section ("/#contact").
+  useEffect(() => {
+    if (!window.location.hash) scrollToTop();
+  }, [location]);
 
   const handleIntroDone = () => {
     markIntroSeen();
@@ -46,13 +50,17 @@ const App: React.FC = () => {
       {introPlaying && <Preloader onDone={handleIntroDone} />}
       <Navbar />
       <main>
-        <Hero />
-        <Products />
-        <EmbiotinSection />
-        <EmprotinoSection />
-        <About />
-        <Edge />
-        <Contact />
+        {/* Fallback keeps the footer below the fold while a product page chunk loads */}
+        <Suspense fallback={<div className="min-h-svh" />}>
+          <Switch>
+            <Route path="/" component={Home} />
+            <Route path="/embiotin" component={EmbiotinPage} />
+            <Route path="/emprotino" component={EmprotinoPage} />
+            <Route>
+              <Redirect to="/" replace />
+            </Route>
+          </Switch>
+        </Suspense>
       </main>
       <Footer />
     </div>

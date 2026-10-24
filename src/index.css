@@ -14,6 +14,8 @@
   --color-cyan-bright: #1599D0;
   --color-green-health: #5C9E31;
   --color-lavender-white: #F7F3FA;
+  /* Brand purple folded ~6% into lavender-white: the soft field for panels that were solid purple */
+  --color-lavender-tint: #EDE6F0;
 
   /* Derived neutrals: ink for headings, ink-soft for running text, muted-plum for captions only */
   --color-ink-deep: #200B29;
