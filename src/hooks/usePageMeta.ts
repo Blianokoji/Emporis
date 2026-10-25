@@ -23,5 +23,7 @@ export function usePageMeta({ title, description, path }: PageMeta): void {
     setMeta('meta[property="og:title"]', "content", title);
     setMeta('meta[property="og:description"]', "content", description);
     setMeta('meta[property="og:url"]', "content", url);
+    setMeta('meta[name="twitter:title"]', "content", title);
+    setMeta('meta[name="twitter:description"]', "content", description);
   }, [title, description, path]);
 }

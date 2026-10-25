@@ -1,6 +1,7 @@
 import React from "react";
 import { LuArrowDown } from "react-icons/lu";
 import labImg from "../assets/lab_img.webp";
+import labImgSmall from "../assets/lab_img_1280.webp";
 import BrandWave from "./BrandWave";
 
 // Entrance delays stack on top of --intro, which is 1s while the preloader veil lifts.
@@ -10,6 +11,8 @@ const Hero: React.FC = () => (
   <section id="home" className="relative isolate flex min-h-svh flex-col overflow-hidden bg-purple-deep text-lavender-white">
     <img
       src={labImg}
+      srcSet={`${labImgSmall} 1280w, ${labImg} 2560w`}
+      sizes="100vw"
       alt=""
       width={2560}
       height={1435}

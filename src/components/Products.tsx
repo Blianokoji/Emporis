@@ -71,7 +71,7 @@ const ProductRow: React.FC<{ product: Product; flip: boolean }> = ({ product, fl
         href={product.href}
         className="mt-6 inline-flex min-h-11 w-fit items-center font-medium text-magenta-vibrant underline decoration-magenta-vibrant/30 decoration-1 underline-offset-[6px] transition-colors duration-200 hover:decoration-magenta-vibrant"
       >
-        Learn More
+        Learn More<span className="sr-only"> about {product.name}</span>
       </Link>
     </div>
   </article>
