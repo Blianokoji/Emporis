@@ -15,6 +15,8 @@ interface Product {
   href: string;
   /** Crop focus inside the shared 4:5 frame. */
   focus: string;
+  /** Image object fit: cover (default) or contain. */
+  fit?: "cover" | "contain";
 }
 
 const products: Product[] = [
@@ -33,10 +35,11 @@ const products: Product[] = [
     tagline: "Advanced Whey Protein Formula",
     desc: "Emprotino is a premium whey isolate supplement (30 g whey isolate per 100 g) with essential branched-chain amino acids and the added advantage of palatinose. It is designed to help adults recovering from illness, older adults and those with weakened health regain strength, maintain muscle mass and improve overall nutrition.",
     image: emproteinImg,
-    width: 1600,
-    height: 1120,
+    width: 1200,
+    height: 1200,
     href: "/emprotino",
-    focus: "object-[60%_50%]",
+    focus: "object-center",
+    fit: "contain",
   },
 ];
 
@@ -49,7 +52,9 @@ const ProductRow: React.FC<{ product: Product; flip: boolean }> = ({ product, fl
   >
     <div
       data-reveal="image"
-      className={`relative aspect-[4/3] overflow-hidden rounded-xl bg-lavender-tint md:aspect-[4/5] ${flip ? "md:order-2" : ""}`}
+      className={`relative aspect-[4/3] overflow-hidden rounded-xl ${
+        product.fit === "contain" ? "bg-white" : "bg-lavender-tint"
+      } md:aspect-[4/5] ${flip ? "md:order-2" : ""}`}
     >
       <img
         src={product.image}
@@ -58,7 +63,9 @@ const ProductRow: React.FC<{ product: Product; flip: boolean }> = ({ product, fl
         height={product.height}
         loading="lazy"
         decoding="async"
-        className={`absolute inset-0 size-full object-cover ${product.focus}`}
+        className={`absolute inset-0 size-full ${
+          product.fit === "contain" ? "object-contain p-4 md:p-6" : `object-cover ${product.focus}`
+        }`}
       />
     </div>
     <div className="flex flex-col justify-center">

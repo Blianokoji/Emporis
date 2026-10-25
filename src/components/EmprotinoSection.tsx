@@ -81,14 +81,14 @@ const EmprotinoSection: React.FC = () => {
               <li>No Added Sugar</li>
             </ul>
           </div>
-          <div data-reveal="image" className={spotlightFrame}>
+          <div data-reveal="image" className={`${spotlightFrame} bg-white`}>
             <img
               src={emproteinImg}
-              alt="A tub of Emprotino whey protein beside a shaker bottle"
-              width={1600}
-              height={1120}
+              alt="Emprotino Whey Isolate canister with Amino Acids, Rabbadi Flavour"
+              width={1200}
+              height={1200}
               decoding="async"
-              className="absolute inset-0 size-full object-cover object-[60%_50%]"
+              className="absolute inset-0 size-full object-contain p-4 sm:p-6"
             />
           </div>
         </div>
