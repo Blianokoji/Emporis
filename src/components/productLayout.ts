@@ -36,10 +36,8 @@ export const pillarText = "mt-3 max-w-[40ch] leading-[1.6] text-ink-soft";
 
 /** Formula band surfaces (see FormulaPanel): the panel and its visual card always contrast by one tone step. */
 export const formulaSurface = {
-  white: { band: "bg-white", card: "bg-lavender-white" },
-  lavender: { band: "bg-lavender-white", card: "bg-white" },
+  white: { band: "bg-white" },
+  lavender: { band: "bg-lavender-white" },
 } as const;
 export const formulaHeader = "flex flex-col justify-between gap-4 border-b border-purple-brand/10 pb-8 md:flex-row md:items-end";
 export const formulaCount = "text-sm text-muted-plum tabular-nums";
-export const formulaGrid = "mt-12 grid items-center gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16";
-export const visualCard = "min-w-0 rounded-xl p-6 sm:p-8";

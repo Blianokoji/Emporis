@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import embiotin2 from "../assets/embiotin_2.webp";
 import FormulaPanel from "./FormulaPanel";
-import FormulaRing from "./FormulaRing";
 import FormulaTable, { type FormulaRow } from "./FormulaTable";
 import ProductStandard from "./ProductStandard";
 import Eyebrow from "./Eyebrow";
@@ -20,7 +19,6 @@ import {
   spotlightGrid,
   spotlightLabel,
   spotlightName,
-  spotlightSubtitle,
   subheading,
 } from "./productLayout";
 
@@ -30,12 +28,12 @@ import {
 const accent = productAccent.embiotin;
 
 const ingredients: FormulaRow[] = [
-  { id: "pantothenate", name: "Calcium Pantothenate", amount: "100 mg", role: "The Follicle Nourisher", tone: accent.fill },
-  { id: "nac", name: "N-Acetylcysteine (NAC)", amount: "50 mg", role: "The Cellular Guardian", tone: accent.fill },
-  { id: "zinc", name: "Zinc Oxide (Elemental Zinc)", amount: "22.5 mg", role: "Growth & Repair Catalyst", tone: accent.fill },
-  { id: "biotin", name: "Biotin", amount: "10 mg / 10,000 mcg", role: "The Keratin Architect", tone: accent.fill },
-  { id: "copper", name: "Cupric Oxide (Elemental Copper)", amount: "3 mg", role: "Structural & Pigment Anchor", tone: accent.fill },
-  { id: "selenium", name: "Sodium Selenite (Elemental Selenium)", amount: "65 mcg", role: "Scalp Health Regulator", tone: accent.fill },
+  { id: "pantothenate", name: "Calcium Pantothenate", amount: "100 mg", role: "The Follicle Nourisher" },
+  { id: "nac", name: "N-Acetylcysteine (NAC)", amount: "50 mg", role: "The Cellular Guardian" },
+  { id: "zinc", name: "Zinc Oxide (Elemental Zinc)", amount: "22.5 mg", role: "Growth & Repair Catalyst" },
+  { id: "biotin", name: "Biotin", amount: "10 mg / 10,000 mcg", role: "The Keratin Architect" },
+  { id: "copper", name: "Cupric Oxide (Elemental Copper)", amount: "3 mg", role: "Structural & Pigment Anchor" },
+  { id: "selenium", name: "Sodium Selenite (Elemental Selenium)", amount: "65 mcg", role: "Scalp Health Regulator" },
 ];
 
 const pillars = [
@@ -78,8 +76,6 @@ const clinicalPoints = [
 ];
 
 const EmbiotinSection: React.FC = () => {
-  const [activeId, setActiveId] = useState("biotin");
-
   return (
     <section id="embiotin" aria-labelledby="embiotin-title">
       {/* ─── Product spotlight ─── */}
@@ -89,7 +85,6 @@ const EmbiotinSection: React.FC = () => {
             <Eyebrow tone={spotlightLabel}>Product Spotlight</Eyebrow>
             <h1 id="embiotin-title" className="mt-6 font-display font-normal">
               <span className={spotlightName}>EMBIOTIN</span>
-              <span className={spotlightSubtitle}>Six-Pillar Approach to Hair Revitalisation</span>
             </h1>
             <div className={spotlightCopy}>
               <p>
@@ -120,10 +115,10 @@ const EmbiotinSection: React.FC = () => {
       {/* ─── The Embiotin philosophy ─── */}
       <div className={`bg-white ${sectionPad}`}>
         <div className={container}>
-          <Eyebrow>The Embiotin Philosophy</Eyebrow>
-          <h2 className={`mt-4 max-w-4xl text-ink-deep ${subheading}`}>
+          <h2 className={`max-w-4xl text-ink-deep ${subheading}`}>The Embiotin Philosophy</h2>
+          <p className="mt-4 max-w-[65ch] text-lg leading-[1.6] text-ink-soft">
             Comprehensive care targeting three critical domains of hair vitality
-          </h2>
+          </p>
           <ul className={`${pillarList} md:grid-cols-3`}>
             {pillars.map((p) => (
               <li key={p.word} className={pillarItem}>
@@ -144,13 +139,10 @@ const EmbiotinSection: React.FC = () => {
         heading="EMBIOTIN"
         count={`${ingredients.length} Active Ingredients`}
         surface="lavender"
-        visual={<FormulaRing ingredients={ingredients} activeId={activeId} onActivate={setActiveId} />}
       >
         <FormulaTable
           headings={["Ingredient", "Dosage per Tablet", "Primary Role in Hair Revitalization"]}
           rows={ingredients}
-          activeId={activeId}
-          onActivate={setActiveId}
         />
       </FormulaPanel>
 

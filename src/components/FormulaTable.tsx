@@ -5,24 +5,17 @@ export interface FormulaRow {
   name: string;
   amount: string;
   role: string;
-  /** Tailwind background class for the row's indicator bar and its visualiser mark. */
-  tone: string;
 }
 
 interface FormulaTableProps {
   /** Column headings after the "#" column: item, amount, role. */
   headings: readonly [string, string, string];
   rows: readonly FormulaRow[];
-  activeId: string;
-  onActivate: (id: string) => void;
   footnote?: string;
 }
 
-/**
- * Four-column composition table shared by every product. Rows sync with the product's
- * visualiser through activeId; every column stays visible and narrow screens scroll sideways.
- */
-const FormulaTable: React.FC<FormulaTableProps> = ({ headings, rows, activeId, onActivate, footnote }) => (
+/** Four-column composition table shared by every product; every column stays visible and narrow screens scroll sideways. */
+const FormulaTable: React.FC<FormulaTableProps> = ({ headings, rows, footnote }) => (
   <div className="overflow-x-auto rounded-xl border border-purple-brand/10">
     <table className="w-full min-w-[36rem] text-left">
       <thead className="border-b border-purple-brand/10 bg-lavender-white text-sm text-muted-plum">
@@ -34,33 +27,16 @@ const FormulaTable: React.FC<FormulaTableProps> = ({ headings, rows, activeId, o
         </tr>
       </thead>
       <tbody>
-        {rows.map((row, i) => {
-          const isActive = row.id === activeId;
-          return (
-            <tr
-              key={row.id}
-              onPointerEnter={() => onActivate(row.id)}
-              className={`border-b border-purple-brand/[0.07] align-top transition-colors duration-300 last:border-0 ${
-                isActive ? "bg-lavender-white" : ""
-              }`}
-            >
-              <td className="relative py-4 pr-2 pl-6 text-sm text-muted-plum tabular-nums">
-                <span
-                  aria-hidden
-                  className={`absolute inset-y-3 left-0 w-0.5 transition-opacity duration-300 ${row.tone} ${
-                    isActive ? "opacity-100" : "opacity-0"
-                  }`}
-                />
-                {String(i + 1).padStart(2, "0")}
-              </td>
-              <th scope="row" className="py-4 pr-4 font-medium text-ink-deep">
-                {row.name}
-              </th>
-              <td className="py-4 pr-6 text-right whitespace-nowrap text-ink-deep tabular-nums">{row.amount}</td>
-              <td className="py-4 pr-6 text-sm leading-[1.6] text-ink-soft">{row.role}</td>
-            </tr>
-          );
-        })}
+        {rows.map((row, i) => (
+          <tr key={row.id} className="border-b border-purple-brand/[0.07] align-top last:border-0">
+            <td className="py-4 pr-2 pl-6 text-sm text-muted-plum tabular-nums">{String(i + 1).padStart(2, "0")}</td>
+            <th scope="row" className="py-4 pr-4 font-medium text-ink-deep">
+              {row.name}
+            </th>
+            <td className="py-4 pr-6 text-right whitespace-nowrap text-ink-deep tabular-nums">{row.amount}</td>
+            <td className="py-4 pr-6 text-sm leading-[1.6] text-ink-soft">{row.role}</td>
+          </tr>
+        ))}
       </tbody>
       {footnote && (
         <tfoot className="border-t border-purple-brand/10">

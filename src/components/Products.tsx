@@ -4,8 +4,6 @@ import embiotinImg from "../assets/embiotin.webp";
 import emproteinImg from "../assets/emprotein.webp";
 import Eyebrow from "./Eyebrow";
 
-type Category = "Nutraceutical" | "Nutritional";
-
 interface Product {
   name: string;
   tagline: string;
@@ -13,49 +11,34 @@ interface Product {
   image: string;
   width: number;
   height: number;
-  category: Category;
-  /** Product page that "View Formula" opens. */
+  /** Product page that "Learn More" opens. */
   href: string;
   /** Crop focus inside the shared 4:5 frame. */
   focus: string;
 }
 
-const CATEGORY_DOT: Record<Category, string> = {
-  Nutraceutical: "bg-magenta-vibrant",
-  Nutritional: "bg-blue-health",
-};
-
 const products: Product[] = [
   {
     name: "Embiotin",
-    tagline: "Advanced Hair Growth Supplement by Emporis",
-    desc: "Emporis Embiotin is a premium clinical biotin formulation fortified with essential vitamins and minerals. Embiotin strengthens hair from the root, enhances shine, and promotes healthy regrowth — helping restore confidence naturally.",
+    tagline: "Advanced Hair Growth Supplement",
+    desc: "A premium biotin-based nutritional formulation fortified with essential vitamins and minerals. Embiotin strengthens hair from the root, enhances shine, and promotes healthy regrowth, helping restore confidence naturally.",
     image: embiotinImg,
     width: 853,
     height: 1052,
-    category: "Nutraceutical",
     href: "/embiotin",
     focus: "object-[50%_40%]",
   },
   {
     name: "Emprotino",
-    tagline: "Advanced Whey Protein Formula by Emporis",
-    desc: "Emporis Emprotino is a scientifically developed whey protein supplement designed to meet increased protein requirements in special populations.",
+    tagline: "Advanced Whey Protein Formula",
+    desc: "Emprotino is a premium whey isolate supplement (30 g whey isolate per 100 g) with essential branched-chain amino acids and the added advantage of palatinose. It is designed to help adults recovering from illness, older adults and those with weakened health regain strength, maintain muscle mass and improve overall nutrition.",
     image: emproteinImg,
     width: 1600,
     height: 1120,
-    category: "Nutritional",
     href: "/emprotino",
     focus: "object-[60%_50%]",
   },
 ];
-
-const CategoryLabel: React.FC<{ category: Category }> = ({ category }) => (
-  <p className="flex items-center gap-2 text-sm font-medium text-muted-plum">
-    <span className={`size-2 rounded-full ${CATEGORY_DOT[category]}`} aria-hidden />
-    Emporis &bull; {category}
-  </p>
-);
 
 /** One product row: photo and copy side by side on the canvas, mirrored on alternate rows from tablet up. */
 const ProductRow: React.FC<{ product: Product; flip: boolean }> = ({ product, flip }) => (
@@ -79,8 +62,7 @@ const ProductRow: React.FC<{ product: Product; flip: boolean }> = ({ product, fl
       />
     </div>
     <div className="flex flex-col justify-center">
-      <CategoryLabel category={product.category} />
-      <h3 className="mt-4 font-display text-[clamp(2.75rem,5vw,4.25rem)] leading-none font-normal text-ink-deep">
+      <h3 className="font-display text-[clamp(2.75rem,5vw,4.25rem)] leading-none font-normal text-ink-deep">
         {product.name}
       </h3>
       <p className="mt-3 font-medium text-ink-deep">{product.tagline}</p>
@@ -89,7 +71,7 @@ const ProductRow: React.FC<{ product: Product; flip: boolean }> = ({ product, fl
         href={product.href}
         className="mt-6 inline-flex min-h-11 w-fit items-center font-medium text-magenta-vibrant underline decoration-magenta-vibrant/30 decoration-1 underline-offset-[6px] transition-colors duration-200 hover:decoration-magenta-vibrant"
       >
-        View Formula
+        Learn More
       </Link>
     </div>
   </article>

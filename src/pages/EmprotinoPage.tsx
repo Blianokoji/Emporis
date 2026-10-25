@@ -7,7 +7,7 @@ const EmprotinoPage: React.FC = () => {
   usePageMeta({
     title: "Emprotino | Emporis Health Care",
     description:
-      "Emporis Emprotino is a scientifically developed whey protein supplement designed to meet increased protein requirements in special populations.",
+      "Emprotino is a premium whey isolate supplement (30 g whey isolate per 100 g) with essential branched-chain amino acids and the added advantage of palatinose. It is designed to help adults recovering from illness, older adults and those with weakened health regain strength, maintain muscle mass and improve overall nutrition.",
     path: "/emprotino",
   });
   useScrollReveal();

@@ -7,7 +7,7 @@ const EmbiotinPage: React.FC = () => {
   usePageMeta({
     title: "Embiotin | Emporis Health Care",
     description:
-      "Emporis Embiotin is a premium clinical biotin formulation fortified with essential vitamins and minerals. Embiotin strengthens hair from the root, enhances shine, and promotes healthy regrowth — helping restore confidence naturally.",
+      "A premium biotin-based nutritional formulation fortified with essential vitamins and minerals. Embiotin strengthens hair from the root, enhances shine, and promotes healthy regrowth, helping restore confidence naturally.",
     path: "/embiotin",
   });
   useScrollReveal();

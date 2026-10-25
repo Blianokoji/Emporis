@@ -1,7 +1,7 @@
 # CLAUDE.md — Emporis Health Care (Emporius)
 
 > **Project:** Emporis Health Care Web Application  
-> **Active Branch:** `enhancements/design-2.0`  
+> **Active Branch:** `enhancements/client-copy-round-2`  
 > **Collaboration Model:** Tandem workflow with **Antigravity** (Analysis, Tokens, Caching, Minor Tasks) and **Claude** (Major Architecture, Modern Sleek Visual Redesign, Functional Animations).  
 > **Source of Truth for Design:** [`DESIGN.md`](./DESIGN.md)
 
@@ -12,7 +12,7 @@
 ### A. Role Division
 * **Claude (You):** Execute **Major Tasks**. Your mandate is to design and implement an extraordinary, modern, sleek, animated, and functionally responsive web application across mobile, tablet, and desktop screens. You own the component refactoring, fluid layout choreography, and interactive feature engineering.
 * **Antigravity (Partner Agent):** Executes **Minor Tasks**. Manages CSS token definitions, bundle caching, preconnect hints, package updates, lint/build validations, and analysis summaries.
-* **Git Safety:** Always work on `enhancements/design-2.0`. **Do not push** to `origin` unless explicitly requested by the user.
+* **Git Safety:** Always work on `enhancements/client-copy-round-2`. **Do not push** to `origin` unless explicitly requested by the user.
 
 ### B. Agent & Skill Directives (Claude Design Suite)
 * **Claude Design Core (`claude-design`):** Portable engine adapted from Anthropic's Claude.ai design system architecture (`jiji262/claude-design-skill`).
@@ -46,7 +46,7 @@
 * **Build System:** Vite 7 with Rollup manual chunk caching (`vendor-react`, `vendor-lenis`, `vendor-radix`)
 * **Styling:** Tailwind CSS v4 (`@tailwindcss/vite`, `@theme` directives in `src/index.css`)
 * **Motion & Animation:** `motion` (declarative spring animations) + `lenis` smooth scrolling via shared instance in `src/lib/lenis.ts` (disabled under `prefers-reduced-motion`; anchor offsets come from `section[id] { scroll-margin-top }`).
-* **Accessible primitives:** `@radix-ui/react-dialog` (mobile nav drawer). The Embiotin `FormulaRing` hexagon ring is decorative (`aria-hidden`) and highlights the matching row of the full ingredient table, which stays the accessible source of the data.
+* **Accessible primitives:** `@radix-ui/react-dialog` (mobile nav drawer).
 * **Anti-slop rules:** no glassmorphism or backdrop blur, no gradient text or decorative gradient washes, no identical icon-tile cards with coloured top bars, no tracked uppercase labels, no pills on static text, no decorative watermark numerals or appended arrow icons. Section labels use the neutral `Eyebrow` (plain small text). Radii: photos/panels `rounded-xl`, inputs/secondary buttons `rounded-lg`, pill only for the hero CTA.
 * **Content & Product Lineup Rules:**
   - **Product Lineup (Strictly 2 Products):** The portfolio consists solely of **Embiotin** and **Emprotino**. **Emflat** has been permanently removed from the catalog, navigation, copy, and schema.
@@ -97,7 +97,6 @@ C:\Users\bless\Documents\Emporius
 │   │   ├── Footer.tsx                        (Brand disclaimer, columns, and back-to-top)
 │   │   ├── Eyebrow.tsx                       (Subtle section category label)
 │   │   ├── FormulaPanel.tsx                  (Ingredient details panel)
-│   │   ├── FormulaRing.tsx                   (Hexagonal formulation ring)
 │   │   ├── FormulaTable.tsx                  (Clinical formulation table)
 │   │   └── ProductStandard.tsx               (Standard certification badge card)
 │   ├── lib/
