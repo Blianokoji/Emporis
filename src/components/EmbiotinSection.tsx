@@ -89,12 +89,12 @@ const EmbiotinSection: React.FC = () => {
             <div className={spotlightCopy}>
               <p>
                 In the landscape of hair health supplements, one ingredient has achieved unparalleled recognition: Biotin.
-                Its reputation as a cornerstone nutrient for hair is well-deserved, forming an essential part of the keratin
-                production process.
+                Its reputation as cornerstone nutrient for hair is well-deserved, forming an essential part of the keratin
+                production process. Embiotin honours this legacy by including a potent, therapeutic dose of the vital vitamin.
               </p>
               <p>
-                Developed by Emporis Health Care—alongside our specialized formulation Emprotino whey protein—Embiotin
-                honours this legacy by offering a complete six-pillar approach to hair health.
+                However, the science of hair revitalization has evolved, recognizing that a single pillar, no matter how strong,
+                cannot support the entire structure of hair health.
               </p>
             </div>
           </div>
